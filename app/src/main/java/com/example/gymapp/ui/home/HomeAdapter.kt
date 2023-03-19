@@ -9,7 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.R
 
 class HomeAdapter: RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
-    var data = listOf(WorkoutDay)
+    private var data = listOf(
+        WorkoutDay(WorkoutType.SQUAT),
+        WorkoutDay(WorkoutType.BENCH),
+        WorkoutDay(WorkoutType.DEADLIFT),
+        WorkoutDay(WorkoutType.OHP),
+    )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -21,10 +26,6 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
         return data.size
-    }
-
-    companion object WorkoutDay {
-        val workoutType: WorkoutType = WorkoutType.SQUAT
     }
 
     class ViewHolder private constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
