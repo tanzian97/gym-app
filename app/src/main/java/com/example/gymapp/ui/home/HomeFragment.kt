@@ -13,8 +13,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,15 +21,15 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        val viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val manager = GridLayoutManager(activity, 2)
-        binding.exerciseTypeList.layoutManager = manager
+        binding.workoutTypeList.layoutManager = manager
 
         val adapter = HomeAdapter()
-        binding.exerciseTypeList.adapter = adapter
+        binding.workoutTypeList.adapter = adapter
 
         return binding.root
     }
