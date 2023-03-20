@@ -44,7 +44,7 @@ class WorkoutAdapter: RecyclerView.Adapter<WorkoutAdapter.ViewHolder>() {
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.workout_set, parent, false)
+                val view = layoutInflater.inflate(R.layout.list_workout_set, parent, false)
                 return ViewHolder(view)
             }
         }

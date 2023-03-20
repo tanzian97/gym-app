@@ -2,12 +2,10 @@ package com.example.gymapp.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gymapp.R
-import com.example.gymapp.databinding.WorkoutDayBinding
+import com.example.gymapp.databinding.ListWorkoutDayBinding
 
-class HomeAdapter: RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(val clickListener: WorkoutTypeListener): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     private var data = listOf(
         WorkoutDay(WorkoutType.SQUAT),
         WorkoutDay(WorkoutType.BENCH),
@@ -20,31 +18,24 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], clickListener)
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    class ViewHolder private constructor(val binding: WorkoutDayBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: WorkoutDay) {
-            binding.exerciseTypeName.text = item.workoutType.toString()
-
-            binding.exerciseTypeImage.setImageResource(
-                when (item.workoutType) {
-                    WorkoutType.SQUAT -> R.drawable.ic_sleep_0
-                    WorkoutType.BENCH -> R.drawable.ic_sleep_1
-                    WorkoutType.DEADLIFT -> R.drawable.ic_sleep_2
-                    WorkoutType.OHP -> R.drawable.ic_sleep_3
-                }
-            )
+    class ViewHolder private constructor(val binding: ListWorkoutDayBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: WorkoutDay, clickListener: WorkoutTypeListener) {
+            binding.workoutType = item.workoutType
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = WorkoutDayBinding.inflate(layoutInflater, parent, false)
+                val binding = ListWorkoutDayBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }

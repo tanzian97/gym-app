@@ -10,17 +10,17 @@
             type="com.example.gymapp.ui.home.WorkoutType" />
         <variable
             name="clickListener"
-            type="com.example.android.trackmysleepquality.sleeptracker.SleepNightListener" />
+            type="com.example.gymapp.ui.home.WorkoutTypeListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        >
+        android:onClick="@{() -> clickListener.onClick(workoutType)" >
 
         <ImageView
-            android:id="@+id/exercise_type_image"
+            android:id="@+id/workout_type_image"
             android:layout_width="@dimen/icon_size"
             android:layout_height="60dp"
             android:layout_marginTop="8dp"
@@ -29,19 +29,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/ic_sleep_5" />
-<!--        app:sleepImage="@{sleep}"-->
+            tools:srcCompat="@drawable/ic_sleep_5"
+            app:workoutTypeImage="@{workoutType}"/>
 
         <TextView
-            android:id="@+id/exercise_type_name"
+            android:id="@+id/workout_type_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/exercise_type_image"
-            app:layout_constraintStart_toStartOf="@+id/exercise_type_image"
-            app:layout_constraintTop_toBottomOf="@+id/exercise_type_image" />
-<!--        app:sleepQualityString="@{sleep}-->
+            app:layout_constraintEnd_toEndOf="@+id/workout_type_image"
+            app:layout_constraintStart_toStartOf="@+id/workout_type_image"
+            app:layout_constraintTop_toBottomOf="@id/workout_type_image"
+            app:workoutTypeName="@{workoutType}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
