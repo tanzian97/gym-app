@@ -7,10 +7,22 @@ import com.example.gymapp.databinding.ListWorkoutDayBinding
 
 class HomeAdapter(val clickListener: WorkoutTypeListener): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     private var data = listOf(
-        WorkoutDay(WorkoutType.SQUAT),
-        WorkoutDay(WorkoutType.BENCH),
-        WorkoutDay(WorkoutType.DEADLIFT),
-        WorkoutDay(WorkoutType.OHP),
+        WorkoutDay(WorkoutType.SQUAT, 1),
+        WorkoutDay(WorkoutType.BENCH, 1),
+        WorkoutDay(WorkoutType.DEADLIFT, 1),
+        WorkoutDay(WorkoutType.OHP, 1),
+        WorkoutDay(WorkoutType.SQUAT, 2),
+        WorkoutDay(WorkoutType.BENCH, 2),
+        WorkoutDay(WorkoutType.DEADLIFT, 2),
+        WorkoutDay(WorkoutType.OHP, 2),
+        WorkoutDay(WorkoutType.SQUAT, 3),
+        WorkoutDay(WorkoutType.BENCH, 3),
+        WorkoutDay(WorkoutType.DEADLIFT, 3),
+        WorkoutDay(WorkoutType.OHP, 3),
+        WorkoutDay(WorkoutType.SQUAT, 4),
+        WorkoutDay(WorkoutType.BENCH, 4),
+        WorkoutDay(WorkoutType.DEADLIFT, 4),
+        WorkoutDay(WorkoutType.OHP, 4),
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,6 +40,7 @@ class HomeAdapter(val clickListener: WorkoutTypeListener): RecyclerView.Adapter<
     class ViewHolder private constructor(val binding: ListWorkoutDayBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: WorkoutDay, clickListener: WorkoutTypeListener) {
             binding.workoutType = item.workoutType
+            binding.week = item.weekCount
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }

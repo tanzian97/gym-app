@@ -10,6 +10,16 @@ fun TextView.setExerciseTypeName(workoutType: WorkoutType) {
     text = workoutType.toString()
 }
 
+@BindingAdapter("weekCount")
+fun TextView.setWeekCount(week: Int) {
+    val weekText = if (week < 4) {
+        "Week $week"
+    } else {
+        "Deload"
+    }
+    text = weekText
+}
+
 @BindingAdapter("workoutTypeImage")
 fun ImageView.setExerciseTypeImage(workoutType: WorkoutType) {
     setImageResource(
