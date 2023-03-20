@@ -1,12 +1,11 @@
 package com.example.gymapp.ui.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.R
+import com.example.gymapp.databinding.WorkoutDayBinding
 
 class HomeAdapter: RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     private var data = listOf(
@@ -28,14 +27,11 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
         return data.size
     }
 
-    class ViewHolder private constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val exerciseTypeName: TextView = itemView.findViewById(R.id.exercise_type_name)
-        private val exerciseTypeImage: ImageView = itemView.findViewById(R.id.exercise_type_image)
-
+    class ViewHolder private constructor(val binding: WorkoutDayBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: WorkoutDay) {
-            exerciseTypeName.text = item.workoutType.toString()
+            binding.exerciseTypeName.text = item.workoutType.toString()
 
-            exerciseTypeImage.setImageResource(
+            binding.exerciseTypeImage.setImageResource(
                 when (item.workoutType) {
                     WorkoutType.SQUAT -> R.drawable.ic_sleep_0
                     WorkoutType.BENCH -> R.drawable.ic_sleep_1
@@ -48,9 +44,13 @@ class HomeAdapter: RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.workout_day, parent, false)
-                return ViewHolder(view)
+                val binding = WorkoutDayBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
             }
         }
     }
+}
+
+class WorkoutTypeListener(val clickListener: (workoutType: WorkoutType) -> Unit) {
+    fun onClick(workoutType: WorkoutType) = clickListener(workoutType)
 }
