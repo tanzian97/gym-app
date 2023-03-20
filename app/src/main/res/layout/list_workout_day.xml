@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:onClick="@{() -> clickListener.onClick(workoutType)" >
+        android:onClick="@{() -> clickListener.onClick(workoutType)}" >
 
         <ImageView
             android:id="@+id/workout_type_image"
