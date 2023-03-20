@@ -10,6 +10,8 @@
         android:id="@+id/workout_type_list"
         android:layout_width="395dp"
         android:layout_height="638dp"
+        android:paddingBottom="?attr/actionBarSize"
+        android:clipToPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
