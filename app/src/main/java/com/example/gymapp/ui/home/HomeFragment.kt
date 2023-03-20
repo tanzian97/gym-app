@@ -31,16 +31,16 @@ class HomeFragment : Fragment() {
         val manager = GridLayoutManager(activity, 2)
         binding.workoutTypeList.layoutManager = manager
 
-        val adapter = HomeAdapter(WorkoutTypeListener {
-            workoutType -> Toast.makeText(context, "$workoutType", Toast.LENGTH_LONG).show()
+        val adapter = HomeAdapter(WorkoutTypeListener { workoutType ->
+            homeViewModel.onWorkoutTypeClicked(workoutType)
         })
         binding.workoutTypeList.adapter = adapter
 
-        homeViewModel.navigateToWorkout.observe(viewLifecycleOwner, Observer { workout ->
-            workout?.let {
+        homeViewModel.navigateToWorkout.observe(viewLifecycleOwner, Observer { workoutType ->
+            workoutType?.let {
                 this.findNavController().navigate(
                     HomeFragmentDirections
-                        .actionNavigationHomeToNavigationWorkout())
+                        .actionNavigationHomeToNavigationWorkout(workoutType))
                 homeViewModel.doneNavigating()
             }
         })
