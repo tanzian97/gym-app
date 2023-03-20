@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/navigation_workout"
         android:name="com.example.gymapp.ui.workout.WorkoutFragment"
-        android:label="fragment_workout"
+        android:label="Exercise List"
         tools:layout="@layout/fragment_workout" >
         <argument
             android:name="workout_type"
