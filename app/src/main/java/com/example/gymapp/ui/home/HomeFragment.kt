@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.gymapp.databinding.FragmentHomeBinding
 
@@ -21,7 +23,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        val homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
@@ -30,6 +32,15 @@ class HomeFragment : Fragment() {
 
         val adapter = HomeAdapter()
         binding.workoutTypeList.adapter = adapter
+
+        homeViewModel.navigateToWorkout.observe(viewLifecycleOwner, Observer { workout ->
+            workout?.let {
+                this.findNavController().navigate(
+                    HomeFragmentDirections
+                        .actionNavigationHomeToNavigationWorkout())
+                homeViewModel.doneNavigating()
+            }
+        })
 
         return binding.root
     }
