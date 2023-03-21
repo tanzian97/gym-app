@@ -5,30 +5,28 @@ import com.example.gymapp.database.TrainingMaxDatabaseDao
 import com.example.gymapp.ui.home.WorkoutType
 
 class WorkoutViewModel(
-    private val dao: TrainingMaxDatabaseDao,
-    private val workoutType: WorkoutType,
-    private val weekCount: Int
+    dao: TrainingMaxDatabaseDao,
+    workoutType: WorkoutType,
+    weekCount: Int
 ) : ViewModel() {
 
     // TODO if training max has not been set, should get user to set it
     private val trainingMax = dao.getLatestTrainingMax()
 
+    private val _setList = mutableListOf<WorkoutSet>()
 
-//    private val _setWeights = MutableLiveData<SetWeights>()
-//    val setWeights: LiveData<SetWeights>
-//        get() = _setWeights
-
-    // Should I use Transformations.map
-
-
+    val setList: List<WorkoutSet>
+        get() = _setList
 
     init {
-        val max: Float? = when (workoutType) {
-            WorkoutType.SQUAT -> trainingMax.value?.squatMax
-            WorkoutType.BENCH -> trainingMax.value?.benchMax
-            WorkoutType.DEADLIFT -> trainingMax.value?.deadliftMax
-            WorkoutType.OHP -> trainingMax.value?.ohpMax
-        }
+//        val max: Float? = when (workoutType) {
+//            WorkoutType.SQUAT -> trainingMax.value?.squatMax
+//            WorkoutType.BENCH -> trainingMax.value?.benchMax
+//            WorkoutType.DEADLIFT -> trainingMax.value?.deadliftMax
+//            WorkoutType.OHP -> trainingMax.value?.ohpMax
+//        }
+
+        val max: Float? = 100f
 
         val mapWeekToMultiplierSet1 = mapOf(
             1 to 0.65f,
@@ -51,32 +49,18 @@ class WorkoutViewModel(
             4 to 0.6f
         )
 
-//        if (max != null) {
-//            setWeights.warmUpSet1 = 0.4f * max
-//            setWeights.warmUpSet2 = 0.5f * max
-//            setWeights.warmUpSet3 = 0.6f * max
-//            // TODO fix !!
-//            setWeights.mainSet1 = mapWeekToMultiplierSet1[weekCount]!! * max
-//            setWeights.mainSet2 = mapWeekToMultiplierSet2[weekCount]!! * max
-//            setWeights.mainSet3 = mapWeekToMultiplierSet3[weekCount]!! * max
-//            setWeights.bbbSet = 0.5f * max
-//        }
-    }
-
-    data class SetWeights(val weekCount: Int) {
-
-        var warmUpSet1: Float = 0f
-
-        var warmUpSet2: Float = 0f
-
-        var warmUpSet3: Float = 0f
-
-        var mainSet1: Float = 0f
-
-        var mainSet2: Float = 0f
-
-        var mainSet3: Float = 0f
-
-        var bbbSet: Float = 0f
+        if (max != null) {
+            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 1, 0.4f * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 2, 0.5f * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 3, 0.6f * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.MAIN, 4, mapWeekToMultiplierSet1[weekCount]!! * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.MAIN, 5, mapWeekToMultiplierSet2[weekCount]!! * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.MAIN, 6, mapWeekToMultiplierSet3[weekCount]!! * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 7, 0.5f * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 8, 0.5f * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 9, 0.5f * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 10, 0.5f * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 11, 0.5f * max, 5))
+        }
     }
 }

@@ -7,12 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.R
 
-class WorkoutAdapter: RecyclerView.Adapter<WorkoutAdapter.ViewHolder>() {
-    private var data = listOf(
-        WorkoutSet(),
-        WorkoutSet(),
-        WorkoutSet()
-    )
+class WorkoutAdapter(private val data: List<WorkoutSet>): RecyclerView.Adapter<WorkoutAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -31,7 +26,7 @@ class WorkoutAdapter: RecyclerView.Adapter<WorkoutAdapter.ViewHolder>() {
         private val setDetails: TextView = itemView.findViewById(R.id.set_details)
 
         fun bind(item: WorkoutSet) {
-            setCount.text = item.count.toString()
+            setCount.text = item.setCount.toString()
             setDetails.text = formatSetDetails(item.weight, item.repCount)
         }
 

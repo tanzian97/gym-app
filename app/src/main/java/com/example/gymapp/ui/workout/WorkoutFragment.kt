@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.gymapp.database.TrainingMaxDatabase
@@ -32,13 +31,9 @@ class WorkoutFragment: Fragment(){
 
         val workoutViewModel = ViewModelProvider(this, viewModelFactory)[WorkoutViewModel::class.java]
 
-//        workoutViewModel.setWeights.observe(viewLifecycleOwner, Observer<WorkoutViewModel.SetWeights> {
-//            // Update the UI
-//        })
-
         _binding = FragmentWorkoutBinding.inflate(inflater, container, false)
 
-        val adapter = WorkoutAdapter()
+        val adapter = WorkoutAdapter(workoutViewModel.setList)
         binding.setList.adapter = adapter
 
         return binding.root
