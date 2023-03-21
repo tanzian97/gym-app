@@ -15,9 +15,7 @@ interface SetDatabaseDao {
     @Delete
     suspend fun deleteSet(set: Set)
 
-    @Query("SELECT * FROM table_set ORDER BY setId ASC")
-    fun getSetOrderedBySetId(setId: Int): LiveData<List<Set>>
-
-
+    @Query("SELECT * FROM table_set ORDER BY set_id ASC")
+    fun getSetOrderedBySetId(): LiveData<List<Set>>
 
 }

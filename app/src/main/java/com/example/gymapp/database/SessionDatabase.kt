@@ -4,9 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import kotlin.collections.Set
 
-@Database(entities = [Set::class], version = 1)
+@Database(entities = [Session::class], version = 1)
 abstract class SessionDatabase : RoomDatabase() {
 
     abstract val sessionDatabaseDao: SessionDatabaseDao

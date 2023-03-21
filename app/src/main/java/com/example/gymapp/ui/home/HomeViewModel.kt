@@ -7,13 +7,13 @@ import com.example.gymapp.ui.workout.WorkoutSet
 
 class HomeViewModel : ViewModel() {
 
-    private val _navigateToWorkout = MutableLiveData<WorkoutType?>()
+    private val _navigateToWorkout = MutableLiveData<WorkoutDay?>()
 
-    val navigateToWorkout: LiveData<WorkoutType?>
+    val navigateToWorkout: LiveData<WorkoutDay?>
         get() = _navigateToWorkout
 
-    fun onWorkoutTypeClicked(workoutType: WorkoutType) {
-        _navigateToWorkout.value = workoutType
+    fun onWorkoutClicked(workoutDay: WorkoutDay) {
+        _navigateToWorkout.value = workoutDay
     }
 
     fun doneNavigating() {

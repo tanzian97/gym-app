@@ -34,5 +34,8 @@
         <argument
             android:name="workout_type"
             app:argType="com.example.gymapp.ui.home.WorkoutType" />
+        <argument
+            android:name="week_count"
+            app:argType="integer" />
     </fragment>
 </navigation>

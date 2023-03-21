@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.databinding.ListWorkoutDayBinding
 
-class HomeAdapter(val clickListener: WorkoutTypeListener): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class HomeAdapter(val clickListener: WorkoutDayListener): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     private var data = listOf(
         WorkoutDay(WorkoutType.SQUAT, 1),
         WorkoutDay(WorkoutType.BENCH, 1),
@@ -38,9 +38,8 @@ class HomeAdapter(val clickListener: WorkoutTypeListener): RecyclerView.Adapter<
     }
 
     class ViewHolder private constructor(val binding: ListWorkoutDayBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: WorkoutDay, clickListener: WorkoutTypeListener) {
-            binding.workoutType = item.workoutType
-            binding.week = item.weekCount
+        fun bind(item: WorkoutDay, clickListener: WorkoutDayListener) {
+            binding.workoutDay = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }
@@ -55,6 +54,6 @@ class HomeAdapter(val clickListener: WorkoutTypeListener): RecyclerView.Adapter<
     }
 }
 
-class WorkoutTypeListener(val clickListener: (workoutType: WorkoutType) -> Unit) {
-    fun onClick(workoutType: WorkoutType) = clickListener(workoutType)
+class WorkoutDayListener(val clickListener: (workoutDay: WorkoutDay) -> Unit) {
+    fun onClick(workoutDay: WorkoutDay) = clickListener(workoutDay)
 }

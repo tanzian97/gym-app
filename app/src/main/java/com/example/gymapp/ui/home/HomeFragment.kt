@@ -30,16 +30,16 @@ class HomeFragment : Fragment() {
         val manager = GridLayoutManager(activity, 4)
         binding.workoutTypeList.layoutManager = manager
 
-        val adapter = HomeAdapter(WorkoutTypeListener { workoutType ->
-            homeViewModel.onWorkoutTypeClicked(workoutType)
+        val adapter = HomeAdapter(WorkoutDayListener { workoutDay ->
+            homeViewModel.onWorkoutClicked(workoutDay)
         })
         binding.workoutTypeList.adapter = adapter
 
-        homeViewModel.navigateToWorkout.observe(viewLifecycleOwner, Observer { workoutType ->
-            workoutType?.let {
+        homeViewModel.navigateToWorkout.observe(viewLifecycleOwner, Observer { workoutDay ->
+            workoutDay?.let {
                 this.findNavController().navigate(
                     HomeFragmentDirections
-                        .actionNavigationHomeToNavigationWorkout(workoutType)
+                        .actionNavigationHomeToNavigationWorkout(workoutDay.workoutType, workoutDay.weekCount)
                 )
                 homeViewModel.doneNavigating()
             }

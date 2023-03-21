@@ -4,9 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import kotlin.collections.Set
 
-@Database(entities = [Set::class], version = 1)
+@Database(entities = [TrainingMax::class], version = 1)
 abstract class TrainingMaxDatabase : RoomDatabase() {
 
     abstract val trainingMaxDatabaseDao: TrainingMaxDatabaseDao
@@ -24,7 +23,7 @@ abstract class TrainingMaxDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         TrainingMaxDatabase::class.java,
-                        "session_database"
+                        "training_max_database"
                     )
                         .fallbackToDestructiveMigration()
                         .build()

@@ -1,11 +1,9 @@
 package com.example.gymapp.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Upsert
+import androidx.room.*
 
+@Dao
 interface TrainingMaxDatabaseDao {
 
     @Insert
@@ -17,6 +15,7 @@ interface TrainingMaxDatabaseDao {
     @Delete
     suspend fun deleteTrainingMax(trainingMax: TrainingMax)
 
-    @Query("SELECT * FROM table_training_max ORDER BY id ASC")
-    fun getTrainingMaxOrderedById(id: Int): LiveData<List<TrainingMax>>
+    @Query("SELECT * FROM table_training_max ORDER BY id DESC LIMIT 1")
+    fun getLatestTrainingMax(): LiveData<TrainingMax>
+
 }

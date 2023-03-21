@@ -15,7 +15,7 @@ interface SessionDatabaseDao {
     @Delete
     suspend fun deleteSession(session: Session)
 
-    @Query("SELECT * FROM table_set ORDER BY setId ASC")
-    fun getSessionOrderedBySessionId(sessionId: Int): LiveData<List<Session>>
+    @Query("SELECT * FROM table_session ORDER BY session_id DESC")
+    fun getSessionOrderedBySessionId(): LiveData<List<Session>>
 
 }
