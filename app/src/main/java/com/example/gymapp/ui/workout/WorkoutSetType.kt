@@ -1,7 +1,7 @@
 package com.example.gymapp.ui.workout
 
-enum class WorkoutSetStage {
-    WARMUP,
+enum class WorkoutSetType {
+    WARM_UP,
     MAIN,
     BBB
 }
