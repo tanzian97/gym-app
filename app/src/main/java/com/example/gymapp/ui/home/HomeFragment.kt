@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        val manager = GridLayoutManager(activity, 2)
+        val manager = GridLayoutManager(activity, 4)
         binding.workoutTypeList.layoutManager = manager
 
         val adapter = HomeAdapter(WorkoutTypeListener { workoutType ->
