@@ -56,8 +56,8 @@ class WorkoutViewModel(
 
         return listOf(
             WorkoutSet(WorkoutSetType.MAIN, 4, mapWeekToMultiplierSets[weekCount]?.get(0)!! * max, mapWeekToReps[weekCount]?.get(0)!!),
-            WorkoutSet(WorkoutSetType.MAIN, 4, mapWeekToMultiplierSets[weekCount]?.get(1)!! * max, mapWeekToReps[weekCount]?.get(1)!!),
-            WorkoutSet(WorkoutSetType.MAIN, 4, mapWeekToMultiplierSets[weekCount]?.get(2)!! * max, mapWeekToReps[weekCount]?.get(2)!!),
+            WorkoutSet(WorkoutSetType.MAIN, 5, mapWeekToMultiplierSets[weekCount]?.get(1)!! * max, mapWeekToReps[weekCount]?.get(1)!!),
+            WorkoutSet(WorkoutSetType.MAIN, 6, mapWeekToMultiplierSets[weekCount]?.get(2)!! * max, mapWeekToReps[weekCount]?.get(2)!!),
         )
     }
 }
