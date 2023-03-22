@@ -26,12 +26,24 @@ class WorkoutAdapter(private val data: List<WorkoutSet>): RecyclerView.Adapter<W
         private val setDetails: TextView = itemView.findViewById(R.id.set_details)
 
         fun bind(item: WorkoutSet) {
-            setCount.text = item.setCount.toString()
-            setDetails.text = formatSetDetails(item.weight, item.repCount)
+            setCount.text = formatSetCount(item.setCount)
+            setDetails.text = formatSetDetails(item.weight, item.repCount, item.setCount)
         }
 
-        private fun formatSetDetails(weight: Float, repCount: Int): String {
-            return "${weight.format(1)} x $repCount"
+        private fun formatSetCount(setCount: Int): String {
+            return when (setCount) {
+                in 1..3 -> "Warm-Up"
+                in 4..6 -> "Main Lift"
+                in 7..11 -> "Deload"
+                else -> ""
+            }
+        }
+
+        private fun formatSetDetails(weight: Float, repCount: Int, setCount: Int): String {
+            return when (setCount) {
+                6 -> "${weight.format(1)} kg x $repCount+"
+                else -> "${weight.format(1)} kg x $repCount"
+            }
         }
 
         private fun Float.format(digits: Int) = "%.${digits}f".format(this)

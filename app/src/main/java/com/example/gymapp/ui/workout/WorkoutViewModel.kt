@@ -28,39 +28,40 @@ class WorkoutViewModel(
 
         val max: Float? = 100f
 
-        val mapWeekToMultiplierSet1 = mapOf(
-            1 to 0.65f,
-            2 to 0.7f,
-            3 to 0.75f,
-            4 to 0.4f
-        )
-
-        val mapWeekToMultiplierSet2 = mapOf(
-            1 to 0.75f,
-            2 to 0.8f,
-            3 to 0.85f,
-            4 to 0.5f
-        )
-
-        val mapWeekToMultiplierSet3 = mapOf(
-            1 to 0.85f,
-            2 to 0.9f,
-            3 to 0.95f,
-            4 to 0.6f
-        )
-
         if (max != null) {
-            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 1, 0.4f * max, 5))
-            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 2, 0.5f * max, 5))
-            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 3, 0.6f * max, 5))
-            _setList.add(WorkoutSet(WorkoutSetType.MAIN, 4, mapWeekToMultiplierSet1[weekCount]!! * max, 5))
-            _setList.add(WorkoutSet(WorkoutSetType.MAIN, 5, mapWeekToMultiplierSet2[weekCount]!! * max, 5))
-            _setList.add(WorkoutSet(WorkoutSetType.MAIN, 6, mapWeekToMultiplierSet3[weekCount]!! * max, 5))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 7, 0.5f * max, 5))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 8, 0.5f * max, 5))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 9, 0.5f * max, 5))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 10, 0.5f * max, 5))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 11, 0.5f * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 1, roundDownToNearestIncrement(0.4f * max), 5))
+            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 2, roundDownToNearestIncrement(0.5f * max), 5))
+            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 3, roundDownToNearestIncrement(0.6f * max), 5))
+            _setList.addAll(getMainWorkoutSets(weekCount, max))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 7, roundDownToNearestIncrement(0.5f * max), 10))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 8, roundDownToNearestIncrement(0.5f * max), 10))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 9, roundDownToNearestIncrement(0.5f * max), 10))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 10, roundDownToNearestIncrement(0.5f * max), 10))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 11, roundDownToNearestIncrement(0.5f * max), 10))
         }
+    }
+
+    private fun getMainWorkoutSets(weekCount: Int, max: Float): List<WorkoutSet> {
+        val mapWeekToMultiplierSets = mapOf(
+            1 to listOf(0.65f, 0.75f, 0.85f),
+            2 to listOf(0.7f, 0.8f, 0.9f),
+            3 to listOf(0.75f, 0.85f, 0.95f),
+            4 to listOf(0.4f, 0.5f, 0.6f)
+        )
+        val mapWeekToReps = mapOf(
+            1 to listOf(5, 5, 5),
+            2 to listOf(3, 3, 3),
+            3 to listOf(5, 3, 1)
+        )
+
+        return listOf(
+            WorkoutSet(WorkoutSetType.MAIN, 4, roundDownToNearestIncrement(mapWeekToMultiplierSets[weekCount]?.get(0)!! * max), mapWeekToReps[weekCount]?.get(0)!!),
+            WorkoutSet(WorkoutSetType.MAIN, 4, roundDownToNearestIncrement(mapWeekToMultiplierSets[weekCount]?.get(1)!! * max), mapWeekToReps[weekCount]?.get(1)!!),
+            WorkoutSet(WorkoutSetType.MAIN, 4, roundDownToNearestIncrement(mapWeekToMultiplierSets[weekCount]?.get(2)!! * max), mapWeekToReps[weekCount]?.get(2)!!),
+        )
+    }
+
+    private fun roundDownToNearestIncrement(weight: Float) : Float {
+        return kotlin.math.floor(weight / 2.5).toFloat() * 2.5f
     }
 }
