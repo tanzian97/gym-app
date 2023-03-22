@@ -51,7 +51,8 @@ class WorkoutViewModel(
         val mapWeekToReps = mapOf(
             1 to listOf(5, 5, 5),
             2 to listOf(3, 3, 3),
-            3 to listOf(5, 3, 1)
+            3 to listOf(5, 3, 1),
+            4 to listOf(5, 5, 5)
         )
 
         return listOf(
