@@ -29,16 +29,18 @@ class WorkoutViewModel(
         val max: Float? = 97.5f
 
         if (max != null) {
-            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 1, 0.4f * max, 5))
-            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 2, 0.5f * max, 5))
-            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 3, 0.6f * max, 5))
+            _setList.addAll(getWarmUpWorkoutSets(max))
             _setList.addAll(getMainWorkoutSets(weekCount, max))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 7, 0.5f * max, 10))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 8, 0.5f * max, 10))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 9, 0.5f * max, 10))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 10, 0.5f * max, 10))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 11, 0.5f * max, 10))
+            _setList.addAll(getBBBWorkoutSets(max))
         }
+    }
+
+    private fun getWarmUpWorkoutSets(max: Float): List<WorkoutSet> {
+        return listOf(
+            WorkoutSet(WorkoutSetType.WARM_UP, 1, 0.4f * max, 5),
+            WorkoutSet(WorkoutSetType.WARM_UP, 2, 0.5f * max, 5),
+            WorkoutSet(WorkoutSetType.WARM_UP, 3, 0.6f * max, 5)
+        )
     }
 
     private fun getMainWorkoutSets(weekCount: Int, max: Float): List<WorkoutSet> {
@@ -59,6 +61,16 @@ class WorkoutViewModel(
             WorkoutSet(WorkoutSetType.MAIN, 4, mapWeekToMultiplierSets[weekCount]?.get(0)!! * max, mapWeekToReps[weekCount]?.get(0)!!),
             WorkoutSet(WorkoutSetType.MAIN, 5, mapWeekToMultiplierSets[weekCount]?.get(1)!! * max, mapWeekToReps[weekCount]?.get(1)!!),
             WorkoutSet(WorkoutSetType.MAIN, 6, mapWeekToMultiplierSets[weekCount]?.get(2)!! * max, mapWeekToReps[weekCount]?.get(2)!!),
+        )
+    }
+
+    private fun getBBBWorkoutSets(max: Float): List<WorkoutSet> {
+        return listOf(
+            WorkoutSet(WorkoutSetType.BBB, 7, 0.5f * max, 10),
+            WorkoutSet(WorkoutSetType.BBB, 8, 0.5f * max, 10),
+            WorkoutSet(WorkoutSetType.BBB, 9, 0.5f * max, 10),
+            WorkoutSet(WorkoutSetType.BBB, 10, 0.5f * max, 10),
+            WorkoutSet(WorkoutSetType.BBB, 11, 0.5f * max, 10)
         )
     }
 }
