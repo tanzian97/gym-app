@@ -36,11 +36,13 @@ class WorkoutViewModel(
     }
 
     private fun getWarmUpWorkoutSets(max: Float): List<WorkoutSet> {
-        return listOf(
-            WorkoutSet(WorkoutSetType.WARM_UP, 1, 0.4f * max, 5),
-            WorkoutSet(WorkoutSetType.WARM_UP, 2, 0.5f * max, 5),
-            WorkoutSet(WorkoutSetType.WARM_UP, 3, 0.6f * max, 5)
-        )
+        val sets = mutableListOf<WorkoutSet>()
+        val warmUpSetMultipliers = listOf(0.4f, 0.5f, 0.6f)
+
+        for (i in 0..2) {
+            sets.add(WorkoutSet(WorkoutSetType.WARM_UP, i + 1, warmUpSetMultipliers[i] * max, 5))
+        }
+        return sets
     }
 
     private fun getMainWorkoutSets(weekCount: Int, max: Float): List<WorkoutSet> {
@@ -57,20 +59,23 @@ class WorkoutViewModel(
             4 to listOf(5, 5, 5)
         )
 
-        return listOf(
-            WorkoutSet(WorkoutSetType.MAIN, 4, mapWeekToMultiplierSets[weekCount]?.get(0)!! * max, mapWeekToReps[weekCount]?.get(0)!!),
-            WorkoutSet(WorkoutSetType.MAIN, 5, mapWeekToMultiplierSets[weekCount]?.get(1)!! * max, mapWeekToReps[weekCount]?.get(1)!!),
-            WorkoutSet(WorkoutSetType.MAIN, 6, mapWeekToMultiplierSets[weekCount]?.get(2)!! * max, mapWeekToReps[weekCount]?.get(2)!!),
-        )
+        val sets = mutableListOf<WorkoutSet>()
+        val mainSetMultipliers = mapWeekToMultiplierSets[weekCount]!!
+        val mainSetReps = mapWeekToReps[weekCount]!!
+
+        for (i in 0..2) {
+            sets.add(WorkoutSet(WorkoutSetType.MAIN, i + 4, mainSetMultipliers[i] * max, mainSetReps[i]))
+        }
+        return sets
     }
 
     private fun getBBBWorkoutSets(max: Float): List<WorkoutSet> {
-        return listOf(
-            WorkoutSet(WorkoutSetType.BBB, 7, 0.5f * max, 10),
-            WorkoutSet(WorkoutSetType.BBB, 8, 0.5f * max, 10),
-            WorkoutSet(WorkoutSetType.BBB, 9, 0.5f * max, 10),
-            WorkoutSet(WorkoutSetType.BBB, 10, 0.5f * max, 10),
-            WorkoutSet(WorkoutSetType.BBB, 11, 0.5f * max, 10)
-        )
+        val sets = mutableListOf<WorkoutSet>()
+        val bbbSetMultiplier = 0.5f
+
+        for (i in 0..4) {
+            sets.add(WorkoutSet(WorkoutSetType.BBB, i + 7, bbbSetMultiplier * max, 10))
+        }
+        return sets
     }
 }

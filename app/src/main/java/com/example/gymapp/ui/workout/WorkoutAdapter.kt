@@ -34,13 +34,10 @@ class WorkoutAdapter(
         }
 
         private fun formatSetDetails(weight: Float, repCount: Int, setCount: Int, weekCount: Int): String {
-            return if (weekCount == 4) {
-                "${weight.format(1)} kg x $repCount"
+            return if (weekCount != 4 && setCount == 6) {
+                "${weight.format(1)} kg x $repCount+"
             } else {
-                when (setCount) {
-                    6 -> "${weight.format(1)} kg x $repCount+"
-                    else -> "${weight.format(1)} kg x $repCount"
-                }
+                "${weight.format(1)} kg x $repCount"
             }
         }
 
