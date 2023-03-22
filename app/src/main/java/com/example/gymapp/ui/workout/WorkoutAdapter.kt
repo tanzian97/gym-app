@@ -7,14 +7,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.R
 
-class WorkoutAdapter(private val data: List<WorkoutSet>): RecyclerView.Adapter<WorkoutAdapter.ViewHolder>() {
+class WorkoutAdapter(
+    private val data: List<WorkoutSet>,
+    private val weekCount: Int
+): RecyclerView.Adapter<WorkoutAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], weekCount)
     }
 
     override fun getItemCount(): Int {
@@ -25,15 +28,19 @@ class WorkoutAdapter(private val data: List<WorkoutSet>): RecyclerView.Adapter<W
         private val setType: TextView = itemView.findViewById(R.id.set_type)
         private val setDetails: TextView = itemView.findViewById(R.id.set_details)
 
-        fun bind(item: WorkoutSet) {
+        fun bind(item: WorkoutSet, weekCount: Int) {
             setType.text = item.setType.toString()
-            setDetails.text = formatSetDetails(item.weight, item.repCount, item.setCount)
+            setDetails.text = formatSetDetails(item.weight, item.repCount, item.setCount, weekCount)
         }
 
-        private fun formatSetDetails(weight: Float, repCount: Int, setCount: Int): String {
-            return when (setCount) {
-                6 -> "${weight.format(1)} kg x $repCount+"
-                else -> "${weight.format(1)} kg x $repCount"
+        private fun formatSetDetails(weight: Float, repCount: Int, setCount: Int, weekCount: Int): String {
+            return if (weekCount == 4) {
+                "${weight.format(1)} kg x $repCount"
+            } else {
+                when (setCount) {
+                    6 -> "${weight.format(1)} kg x $repCount+"
+                    else -> "${weight.format(1)} kg x $repCount"
+                }
             }
         }
 

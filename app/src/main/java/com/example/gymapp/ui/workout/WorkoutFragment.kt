@@ -33,7 +33,7 @@ class WorkoutFragment: Fragment(){
 
         _binding = FragmentWorkoutBinding.inflate(inflater, container, false)
 
-        val adapter = WorkoutAdapter(workoutViewModel.setList)
+        val adapter = WorkoutAdapter(workoutViewModel.setList, args.weekCount)
         binding.setList.adapter = adapter
 
         return binding.root
