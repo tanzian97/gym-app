@@ -22,21 +22,12 @@ class WorkoutAdapter(private val data: List<WorkoutSet>): RecyclerView.Adapter<W
     }
 
     class ViewHolder private constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val setCount: TextView = itemView.findViewById(R.id.set_count)
+        private val setType: TextView = itemView.findViewById(R.id.set_type)
         private val setDetails: TextView = itemView.findViewById(R.id.set_details)
 
         fun bind(item: WorkoutSet) {
-            setCount.text = formatSetCount(item.setCount)
+            setType.text = item.setType.toString()
             setDetails.text = formatSetDetails(item.weight, item.repCount, item.setCount)
-        }
-
-        private fun formatSetCount(setCount: Int): String {
-            return when (setCount) {
-                in 1..3 -> "Warm-Up"
-                in 4..6 -> "Main Lift"
-                in 7..11 -> "Deload"
-                else -> ""
-            }
         }
 
         private fun formatSetDetails(weight: Float, repCount: Int, setCount: Int): String {

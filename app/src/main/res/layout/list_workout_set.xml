@@ -23,7 +23,7 @@
         <!--        app:sleepQualityString="@{sleep}-->
 
         <TextView
-            android:id="@+id/set_count"
+            android:id="@+id/set_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
