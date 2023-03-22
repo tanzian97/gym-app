@@ -11,6 +11,6 @@ data class WorkoutSet (
     }
 
     private fun roundDownToNearestIncrement(weight: Float) : Float {
-        return kotlin.math.floor(weight / 2.5).toFloat() * 2.5f
+        return kotlin.math.floor(weight / 2.5f) * 2.5f
     }
 }
