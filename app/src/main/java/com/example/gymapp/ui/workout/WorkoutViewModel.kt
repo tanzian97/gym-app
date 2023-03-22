@@ -26,18 +26,18 @@ class WorkoutViewModel(
 //            WorkoutType.OHP -> trainingMax.value?.ohpMax
 //        }
 
-        val max: Float? = 100f
+        val max: Float? = 97.5f
 
         if (max != null) {
-            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 1, roundDownToNearestIncrement(0.4f * max), 5))
-            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 2, roundDownToNearestIncrement(0.5f * max), 5))
-            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 3, roundDownToNearestIncrement(0.6f * max), 5))
+            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 1, 0.4f * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 2, 0.5f * max, 5))
+            _setList.add(WorkoutSet(WorkoutSetType.WARM_UP, 3, 0.6f * max, 5))
             _setList.addAll(getMainWorkoutSets(weekCount, max))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 7, roundDownToNearestIncrement(0.5f * max), 10))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 8, roundDownToNearestIncrement(0.5f * max), 10))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 9, roundDownToNearestIncrement(0.5f * max), 10))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 10, roundDownToNearestIncrement(0.5f * max), 10))
-            _setList.add(WorkoutSet(WorkoutSetType.BBB, 11, roundDownToNearestIncrement(0.5f * max), 10))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 7, 0.5f * max, 10))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 8, 0.5f * max, 10))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 9, 0.5f * max, 10))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 10, 0.5f * max, 10))
+            _setList.add(WorkoutSet(WorkoutSetType.BBB, 11, 0.5f * max, 10))
         }
     }
 
@@ -55,13 +55,9 @@ class WorkoutViewModel(
         )
 
         return listOf(
-            WorkoutSet(WorkoutSetType.MAIN, 4, roundDownToNearestIncrement(mapWeekToMultiplierSets[weekCount]?.get(0)!! * max), mapWeekToReps[weekCount]?.get(0)!!),
-            WorkoutSet(WorkoutSetType.MAIN, 4, roundDownToNearestIncrement(mapWeekToMultiplierSets[weekCount]?.get(1)!! * max), mapWeekToReps[weekCount]?.get(1)!!),
-            WorkoutSet(WorkoutSetType.MAIN, 4, roundDownToNearestIncrement(mapWeekToMultiplierSets[weekCount]?.get(2)!! * max), mapWeekToReps[weekCount]?.get(2)!!),
+            WorkoutSet(WorkoutSetType.MAIN, 4, mapWeekToMultiplierSets[weekCount]?.get(0)!! * max, mapWeekToReps[weekCount]?.get(0)!!),
+            WorkoutSet(WorkoutSetType.MAIN, 4, mapWeekToMultiplierSets[weekCount]?.get(1)!! * max, mapWeekToReps[weekCount]?.get(1)!!),
+            WorkoutSet(WorkoutSetType.MAIN, 4, mapWeekToMultiplierSets[weekCount]?.get(2)!! * max, mapWeekToReps[weekCount]?.get(2)!!),
         )
-    }
-
-    private fun roundDownToNearestIncrement(weight: Float) : Float {
-        return kotlin.math.floor(weight / 2.5).toFloat() * 2.5f
     }
 }
