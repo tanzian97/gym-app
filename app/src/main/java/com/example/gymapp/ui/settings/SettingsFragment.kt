@@ -32,6 +32,12 @@ class SettingsFragment : Fragment() {
 //        settingsViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
+
+        val fab: View = binding.fab
+        fab.setOnClickListener { view ->
+            SettingsDialogFragment().show(
+                childFragmentManager, SettingsDialogFragment.TAG)
+        }
         return root
     }
 
