@@ -8,16 +8,14 @@
 
     <TextView
         android:id="@+id/training_max_description"
-        android:layout_width="wrap_content"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/training_max_description"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/training_max_title" />
 
     <TextView
         android:id="@+id/squat_max_text"
@@ -114,12 +112,24 @@
         android:layout_gravity="end|bottom"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="84dp"
-        android:contentDescription="@string/edit_floating_action_button"
+        android:contentDescription="@string/edit_fab_description"
         android:src="@drawable/baseline_edit_24"
-        app:tint="@color/white"
         app:backgroundTint="#673AB7"
         app:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/training_max_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Training Maxes"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     <string name="title_history">History</string>
     <string name="title_settings">Settings</string>
     <string name="current_week_1">You are currently on Week 1.</string>
-    <string name="training_max_description">Enter your training maximum for each lift. This should be 80–90% of your true 1RM.</string>
-    <string name="edit_floating_action_button">Edit floating action button</string>
+    <string name="training_max_description">Your TM should be 80–90% of your true 1RM.</string>
+    <string name="edit_training_max">Edit your training maximums.</string>
+    <string name="edit_fab_description">Edit floating action button</string>
 </resources>
