@@ -12,7 +12,7 @@ class SettingsDialogFragment : DialogFragment() {
         return activity?.let {
             // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
-            builder.setMessage(R.string.edit_training_max)
+            builder.setTitle(R.string.edit_training_max)
 //                .setPositiveButton(R.string.start,
 //                    DialogInterface.OnClickListener { dialog, id ->
 //                        // START THE GAME!
