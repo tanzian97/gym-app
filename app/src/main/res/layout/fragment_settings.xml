@@ -7,6 +7,19 @@
     tools:context=".ui.settings.SettingsFragment">
 
     <TextView
+        android:id="@+id/training_max_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/training_max_description"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/squat_max_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +38,7 @@
         android:layout_marginEnd="32dp"
         android:text="110.0"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/squat_max_edit"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/training_max_description" />
 
     <TextView
@@ -48,7 +61,6 @@
         android:text="70.0"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bench_max_edit"
         app:layout_constraintTop_toBottomOf="@+id/squat_max_value" />
 
     <TextView
@@ -70,7 +82,7 @@
         android:layout_marginEnd="32dp"
         android:text="125.0"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/deadlift_max_edit"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bench_max_value" />
 
     <TextView
@@ -92,70 +104,20 @@
         android:layout_marginEnd="32dp"
         android:text="50.0"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/ohp_max_edit"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deadlift_max_value" />
 
-    <Button
-        android:id="@+id/auto_increment_button"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:text="Auto Increment"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="84dp"
+        android:contentDescription="@string/edit_floating_action_button"
+        android:src="@drawable/baseline_edit_24"
+        app:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/training_max_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/training_max_description"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/squat_max_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/baseline_edit_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/training_max_description" />
-
-    <ImageView
-        android:id="@+id/bench_max_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/baseline_edit_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/squat_max_edit" />
-
-    <ImageView
-        android:id="@+id/deadlift_max_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/baseline_edit_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bench_max_edit" />
-
-    <ImageView
-        android:id="@+id/ohp_max_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/baseline_edit_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deadlift_max_edit" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
