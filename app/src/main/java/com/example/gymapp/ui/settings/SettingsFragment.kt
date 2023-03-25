@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.gymapp.databinding.FragmentSettingsBinding
@@ -18,25 +17,31 @@ class SettingsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val settingsViewModel =
             ViewModelProvider(this).get(SettingsViewModel::class.java)
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-//        val textView: TextView = binding.textSettings
-//        settingsViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
+        binding.squatMaxValue.text = settingsViewModel.squatMax.toString()
+        binding.benchMaxValue.text = settingsViewModel.benchMax.toString()
+        binding.deadliftMaxValue.text = settingsViewModel.deadliftMax.toString()
+        binding.ohpMaxValue.text = settingsViewModel.ohpMax.toString()
 
         val fab: View = binding.fab
         fab.setOnClickListener { view ->
-            SettingsDialogFragment().show(
-                childFragmentManager, SettingsDialogFragment.TAG)
+            val args = Bundle()
+            args.putFloat("squatMax", settingsViewModel.squatMax)
+            args.putFloat("benchMax", settingsViewModel.benchMax)
+            args.putFloat("deadliftMax", settingsViewModel.deadliftMax)
+            args.putFloat("ohpMax", settingsViewModel.ohpMax)
+
+            SettingsDialogFragment()
+                .apply { arguments = args }
+                .show(childFragmentManager, SettingsDialogFragment.TAG)
         }
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {

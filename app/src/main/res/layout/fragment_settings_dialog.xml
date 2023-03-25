@@ -16,7 +16,7 @@
         android:inputType="numberDecimal"
         android:maxLength="6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toEndOf="@+id/squat_text"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -29,7 +29,7 @@
         android:inputType="numberDecimal"
         android:maxLength="6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toEndOf="@+id/bench_text"
         app:layout_constraintTop_toBottomOf="@+id/edit_squat_value" />
 
@@ -42,7 +42,7 @@
         android:inputType="numberDecimal"
         android:maxLength="6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toEndOf="@+id/deadlift_text"
         app:layout_constraintTop_toBottomOf="@+id/edit_bench_value" />
 
@@ -55,7 +55,7 @@
         android:inputType="numberDecimal"
         android:maxLength="6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toEndOf="@+id/ohp_text"
         app:layout_constraintTop_toBottomOf="@+id/edit_deadlift_value" />
 

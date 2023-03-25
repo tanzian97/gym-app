@@ -1,13 +1,10 @@
 package com.example.gymapp.ui.settings
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.example.gymapp.R
 import com.example.gymapp.databinding.FragmentSettingsDialogBinding
 
 
@@ -23,6 +20,9 @@ class SettingsDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentSettingsDialogBinding.inflate(inflater, container, false)
+
+        binding.editSquatValue.hint = "90.0"
+
 
         return binding.root
     }
