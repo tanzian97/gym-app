@@ -30,18 +30,38 @@ class SettingsFragment : Fragment() {
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
-        binding.squatMaxValue.text = settingsViewModel.squatMax.toString()
-        binding.benchMaxValue.text = settingsViewModel.benchMax.toString()
-        binding.deadliftMaxValue.text = settingsViewModel.deadliftMax.toString()
-        binding.ohpMaxValue.text = settingsViewModel.ohpMax.toString()
+        settingsViewModel.squatMax.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.squatMaxValue.text = it.toString()
+            }
+        }
+
+        settingsViewModel.benchMax.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.benchMaxValue.text = it.toString()
+            }
+        }
+
+        settingsViewModel.deadliftMax.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.deadliftMaxValue.text = it.toString()
+            }
+        }
+
+        settingsViewModel.ohpMax.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.ohpMaxValue.text = it.toString()
+            }
+        }
+
 
         val fab: View = binding.fab
         fab.setOnClickListener { view ->
             val args = Bundle()
-            args.putFloat("squatMax", settingsViewModel.squatMax)
-            args.putFloat("benchMax", settingsViewModel.benchMax)
-            args.putFloat("deadliftMax", settingsViewModel.deadliftMax)
-            args.putFloat("ohpMax", settingsViewModel.ohpMax)
+            settingsViewModel.squatMax.value?.let { args.putFloat("squatMax", it) }
+            settingsViewModel.benchMax.value?.let { args.putFloat("benchMax", it) }
+            settingsViewModel.deadliftMax.value?.let { args.putFloat("deadliftMax", it) }
+            settingsViewModel.ohpMax.value?.let { args.putFloat("ohpMax", it) }
 
             SettingsDialogFragment()
                 .apply { arguments = args }

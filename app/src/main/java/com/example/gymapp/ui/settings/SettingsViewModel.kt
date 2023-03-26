@@ -15,15 +15,13 @@ class SettingsViewModel(
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewmodelJob)
 
-    private val latestTrainingMaxes = MutableLiveData<TrainingMax>()
+    var squatMax = MutableLiveData<Float>()
 
-    var squatMax: Float = latestTrainingMaxes.value?.squatMax ?: 0f
+    var benchMax = MutableLiveData<Float>()
 
-    var benchMax: Float = latestTrainingMaxes.value?.benchMax ?: 0f
+    var deadliftMax = MutableLiveData<Float>()
 
-    var deadliftMax: Float = latestTrainingMaxes.value?.deadliftMax ?: 0f
-
-    var ohpMax: Float = latestTrainingMaxes.value?.ohpMax ?: 0f
+    var ohpMax = MutableLiveData<Float>()
 
     init {
         initialiseLatestTrainingMaxes()
@@ -31,7 +29,13 @@ class SettingsViewModel(
 
     private fun initialiseLatestTrainingMaxes() {
         uiScope.launch {
-            latestTrainingMaxes.value = getLatestTrainingMaxesFromDatabase()
+            val latestTrainingMax = getLatestTrainingMaxesFromDatabase()
+            if (latestTrainingMax != null) {
+                squatMax.value = latestTrainingMax.squatMax
+                benchMax.value = latestTrainingMax.benchMax
+                deadliftMax.value = latestTrainingMax.deadliftMax
+                ohpMax.value = latestTrainingMax.ohpMax
+            }
         }
     }
 
@@ -42,10 +46,10 @@ class SettingsViewModel(
     }
 
     fun onSaveMaxes(trainingMax: TrainingMax) {
-        squatMax = trainingMax.squatMax
-        benchMax = trainingMax.benchMax
-        deadliftMax = trainingMax.deadliftMax
-        ohpMax = trainingMax.ohpMax
+        squatMax.value = trainingMax.squatMax
+        benchMax.value = trainingMax.benchMax
+        deadliftMax.value = trainingMax.deadliftMax
+        ohpMax.value = trainingMax.ohpMax
 
         viewModelScope.launch {
             update(trainingMax)
@@ -55,16 +59,16 @@ class SettingsViewModel(
     fun onAutoIncrementMaxes() {
         val increment = 2.5f
 
-        squatMax += increment
-        benchMax += increment
-        deadliftMax += increment
-        ohpMax += increment
+        squatMax.value = squatMax.value?.plus(increment)
+        benchMax.value = benchMax.value?.plus(increment)
+        deadliftMax.value = deadliftMax.value?.plus(increment)
+        ohpMax.value = ohpMax.value?.plus(increment)
 
         val trainingMax = TrainingMax(
-            squatMax = squatMax,
-            benchMax = benchMax,
-            deadliftMax = deadliftMax,
-            ohpMax = ohpMax
+            squatMax = squatMax.value?: 0f,
+            benchMax = benchMax.value?: 0f,
+            deadliftMax = deadliftMax.value?: 0f,
+            ohpMax = ohpMax.value?: 0f
         )
 
         viewModelScope.launch {

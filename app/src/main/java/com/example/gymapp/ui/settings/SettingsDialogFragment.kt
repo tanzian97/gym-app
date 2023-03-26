@@ -26,16 +26,16 @@ class SettingsDialogFragment : DialogFragment() {
         _binding = FragmentSettingsDialogBinding.inflate(inflater, container, false)
 
         if (arguments != null) {
-            settingsViewModel.squatMax = arguments?.getFloat("squatMax") ?: 0f
-            settingsViewModel.benchMax = arguments?.getFloat("benchMax") ?: 0f
-            settingsViewModel.deadliftMax = arguments?.getFloat("deadliftMax") ?: 0f
-            settingsViewModel.ohpMax = arguments?.getFloat("ohpMax") ?: 0f
+            settingsViewModel.squatMax.value = arguments?.getFloat("squatMax") ?: 0f
+            settingsViewModel.benchMax.value = arguments?.getFloat("benchMax") ?: 0f
+            settingsViewModel.deadliftMax.value = arguments?.getFloat("deadliftMax") ?: 0f
+            settingsViewModel.ohpMax.value = arguments?.getFloat("ohpMax") ?: 0f
         }
 
-        binding.editSquatValue.hint = settingsViewModel.squatMax.toString()
-        binding.editBenchValue.hint = settingsViewModel.benchMax.toString()
-        binding.editDeadliftValue.hint = settingsViewModel.deadliftMax.toString()
-        binding.editOhpValue.hint = settingsViewModel.ohpMax.toString()
+        binding.editSquatValue.hint = settingsViewModel.squatMax.value.toString()
+        binding.editBenchValue.hint = settingsViewModel.benchMax.value.toString()
+        binding.editDeadliftValue.hint = settingsViewModel.deadliftMax.value.toString()
+        binding.editOhpValue.hint = settingsViewModel.ohpMax.value.toString()
 
         binding.saveMaxesButton.setOnClickListener{
             onSaveMaxes()
@@ -62,10 +62,10 @@ class SettingsDialogFragment : DialogFragment() {
 
     private fun onAutoIncrementMaxes() {
         settingsViewModel.onAutoIncrementMaxes()
-        binding.editSquatValue.setText(settingsViewModel.squatMax.toString())
-        binding.editBenchValue.setText(settingsViewModel.benchMax.toString())
-        binding.editDeadliftValue.setText(settingsViewModel.deadliftMax.toString())
-        binding.editOhpValue.setText(settingsViewModel.ohpMax.toString())
+        binding.editSquatValue.setText(settingsViewModel.squatMax.value.toString())
+        binding.editBenchValue.setText(settingsViewModel.benchMax.value.toString())
+        binding.editDeadliftValue.setText(settingsViewModel.deadliftMax.value.toString())
+        binding.editOhpValue.setText(settingsViewModel.ohpMax.value.toString())
     }
 
     companion object {
