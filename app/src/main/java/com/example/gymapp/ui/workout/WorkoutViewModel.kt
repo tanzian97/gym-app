@@ -18,7 +18,7 @@ class WorkoutViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewmodelJob)
 
     // TODO if training max has not been set, should get user to set it
-    private val trainingMax = MutableLiveData<TrainingMax>()
+    var trainingMax = MutableLiveData<TrainingMax?>()
 
     private var max = MutableLiveData<Float>()
 
@@ -28,13 +28,10 @@ class WorkoutViewModel(
         get() = _setList
 
     init {
-        // Issue is that trainingMax is null.
         initialiseLatestTrainingMaxes()
+    }
 
-        max.value = getMaxForType(workoutType)
-
-        val maximum = max.value ?: 0f
-
+    fun addSetsToList(maximum: Float, weekCount: Int) {
         _setList.addAll(getWarmUpWorkoutSets(maximum))
         _setList.addAll(getMainWorkoutSets(weekCount, maximum))
         _setList.addAll(getBBBWorkoutSets(maximum))
@@ -42,7 +39,10 @@ class WorkoutViewModel(
 
     private fun initialiseLatestTrainingMaxes() {
         uiScope.launch {
-            trainingMax.value = getLatestTrainingMaxesFromDatabase()
+            val latestTrainingMax = getLatestTrainingMaxesFromDatabase()
+            if (latestTrainingMax != null) {
+                trainingMax.value = latestTrainingMax
+            }
         }
     }
 
@@ -52,7 +52,7 @@ class WorkoutViewModel(
         }
     }
 
-    private fun getMaxForType(workoutType: WorkoutType): Float? {
+    fun getMaxForType(workoutType: WorkoutType): Float? {
         return when (workoutType) {
             WorkoutType.SQUAT -> trainingMax.value?.squatMax
             WorkoutType.BENCH -> trainingMax.value?.benchMax

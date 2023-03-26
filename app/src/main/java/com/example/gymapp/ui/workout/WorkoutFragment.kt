@@ -31,6 +31,15 @@ class WorkoutFragment: Fragment(){
 
         val workoutViewModel = ViewModelProvider(this, viewModelFactory)[WorkoutViewModel::class.java]
 
+        workoutViewModel.trainingMax.observe(viewLifecycleOwner) {
+            it?.let {
+                val maximum = workoutViewModel.getMaxForType(args.workoutType)
+                if (maximum != null) {
+                    workoutViewModel.addSetsToList(maximum, args.weekCount)
+                }
+            }
+        }
+
         _binding = FragmentWorkoutBinding.inflate(inflater, container, false)
 
         val adapter = WorkoutAdapter(workoutViewModel.setList, args.weekCount)
