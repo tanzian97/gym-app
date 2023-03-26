@@ -5,13 +5,13 @@ import com.example.gymapp.database.TrainingMaxDatabaseDao
 import com.example.gymapp.ui.home.WorkoutType
 
 class WorkoutViewModel(
-    dao: TrainingMaxDatabaseDao,
+    database: TrainingMaxDatabaseDao,
     workoutType: WorkoutType,
     weekCount: Int
 ) : ViewModel() {
 
     // TODO if training max has not been set, should get user to set it
-//    private val trainingMax = dao.getLatestTrainingMax()
+//    private val trainingMax = database.getLatestTrainingMax()
 
     private val _setList = mutableListOf<WorkoutSet>()
 

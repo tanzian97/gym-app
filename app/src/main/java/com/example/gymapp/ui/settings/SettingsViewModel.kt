@@ -23,6 +23,14 @@ class SettingsViewModel(
 
     var ohpMax = MutableLiveData<Float>()
 
+    var editSquatMax = MutableLiveData<Float>()
+
+    var editBenchMax = MutableLiveData<Float>()
+
+    var editDeadliftMax = MutableLiveData<Float>()
+
+    var editOhpMax = MutableLiveData<Float>()
+
     init {
         initialiseLatestTrainingMaxes()
     }
@@ -56,32 +64,11 @@ class SettingsViewModel(
         }
     }
 
-    fun onAutoIncrementMaxes() {
-        val increment = 2.5f
-
-        squatMax.value = squatMax.value?.plus(increment)
-        benchMax.value = benchMax.value?.plus(increment)
-        deadliftMax.value = deadliftMax.value?.plus(increment)
-        ohpMax.value = ohpMax.value?.plus(increment)
-
-        val trainingMax = TrainingMax(
-            squatMax = squatMax.value?: 0f,
-            benchMax = benchMax.value?: 0f,
-            deadliftMax = deadliftMax.value?: 0f,
-            ohpMax = ohpMax.value?: 0f
-        )
-
-        viewModelScope.launch {
-            update(trainingMax)
-        }
-    }
-
     private suspend fun update(trainingMax: TrainingMax) {
         withContext(Dispatchers.IO) {
             database.upsertTrainingMax(trainingMax)
         }
     }
-
 
     override fun onCleared() {
         super.onCleared()
