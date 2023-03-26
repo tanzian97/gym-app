@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.gymapp.database.TrainingMax
 import com.example.gymapp.databinding.FragmentSettingsDialogBinding
 
 
 class SettingsDialogFragment : DialogFragment() {
 
-    val settingsDialogViewModel = ViewModelProvider(this)[SettingsDialogViewModel::class.java]
+    private val settingsDialogViewModel: SettingsViewModel by viewModels(ownerProducer = { requireParentFragment()} )
 
     private var _binding: FragmentSettingsDialogBinding? = null
 

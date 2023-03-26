@@ -2,6 +2,7 @@ package com.example.gymapp.ui.settings
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.gymapp.database.TrainingMax
 import com.example.gymapp.database.TrainingMaxDatabaseDao
 import kotlinx.coroutines.*
@@ -32,11 +33,47 @@ class SettingsViewModel(
         }
     }
 
+    var squatMax: Float = latestTrainingMaxes.value?.squatMax ?: 0f
+    var benchMax: Float = latestTrainingMaxes.value?.benchMax ?: 0f
+    var deadliftMax: Float = latestTrainingMaxes.value?.deadliftMax ?: 0f
+    var ohpMax: Float = latestTrainingMaxes.value?.ohpMax ?: 0f
 
-    val squatMax: Float = latestTrainingMaxes.value?.squatMax ?: 0f
-    val benchMax: Float = latestTrainingMaxes.value?.benchMax ?: 0f
-    val deadliftMax: Float = latestTrainingMaxes.value?.deadliftMax ?: 0f
-    val ohpMax: Float = latestTrainingMaxes.value?.ohpMax ?: 0f
+    fun onSaveMaxes(trainingMax: TrainingMax) {
+        squatMax = trainingMax.squatMax
+        benchMax = trainingMax.benchMax
+        deadliftMax = trainingMax.deadliftMax
+        ohpMax = trainingMax.ohpMax
+
+        viewModelScope.launch {
+            update(trainingMax)
+        }
+    }
+
+    fun onAutoIncrementMaxes() {
+        val increment = 2.5f
+
+        squatMax += increment
+        benchMax += increment
+        deadliftMax += increment
+        ohpMax += increment
+
+        val trainingMax = TrainingMax(
+            squatMax = squatMax,
+            benchMax = benchMax,
+            deadliftMax = deadliftMax,
+            ohpMax = ohpMax
+        )
+
+        viewModelScope.launch {
+            update(trainingMax)
+        }
+    }
+
+    private suspend fun update(trainingMax: TrainingMax) {
+        withContext(Dispatchers.IO) {
+            dao.upsertTrainingMax(trainingMax)
+        }
+    }
 
 
     override fun onCleared() {

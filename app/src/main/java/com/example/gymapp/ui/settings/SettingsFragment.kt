@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.gymapp.database.TrainingMaxDatabase
 import com.example.gymapp.databinding.FragmentSettingsBinding
-import com.example.gymapp.ui.workout.WorkoutViewModelFactory
 
 class SettingsFragment : Fragment() {
 
