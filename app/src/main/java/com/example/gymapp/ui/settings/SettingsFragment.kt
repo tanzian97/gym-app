@@ -64,7 +64,6 @@ class SettingsFragment : Fragment() {
             settingsViewModel.ohpMax.value?.let { args.putFloat("ohpMax", it) }
 
             SettingsDialogFragment()
-                .apply { arguments = args }
                 .show(childFragmentManager, SettingsDialogFragment.TAG)
         }
         return binding.root

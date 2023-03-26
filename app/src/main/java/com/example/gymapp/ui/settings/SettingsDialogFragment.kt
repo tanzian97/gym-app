@@ -25,13 +25,6 @@ class SettingsDialogFragment : DialogFragment() {
     ): View {
         _binding = FragmentSettingsDialogBinding.inflate(inflater, container, false)
 
-        if (arguments != null) {
-            settingsViewModel.squatMax.value = arguments?.getFloat("squatMax") ?: 0f
-            settingsViewModel.benchMax.value = arguments?.getFloat("benchMax") ?: 0f
-            settingsViewModel.deadliftMax.value = arguments?.getFloat("deadliftMax") ?: 0f
-            settingsViewModel.ohpMax.value = arguments?.getFloat("ohpMax") ?: 0f
-        }
-
         settingsViewModel.editSquatMax.value = settingsViewModel.squatMax.value
         settingsViewModel.editBenchMax.value = settingsViewModel.benchMax.value
         settingsViewModel.editDeadliftMax.value = settingsViewModel.deadliftMax.value
