@@ -18,10 +18,10 @@ class SettingsViewModel(
     private val latestTrainingMaxes = MutableLiveData<TrainingMax>()
 
     init {
-        initlaliseLateestTrainingMaxes()
+        initialiseLatestTrainingMaxes()
     }
 
-    private fun initlaliseLateestTrainingMaxes() {
+    private fun initialiseLatestTrainingMaxes() {
         uiScope.launch {
             latestTrainingMaxes.value = getLatestTrainingMaxesFromDatabase()
         }
