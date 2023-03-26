@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.gymapp.database.TrainingMaxDatabase
 import com.example.gymapp.databinding.FragmentWorkoutBinding
+import com.example.gymapp.ui.home.HomeAdapter
+import com.example.gymapp.ui.home.WorkoutDayListener
 
 class WorkoutFragment: Fragment(){
 
@@ -33,11 +35,21 @@ class WorkoutFragment: Fragment(){
 
         _binding = FragmentWorkoutBinding.inflate(inflater, container, false)
 
-        var adapter = WorkoutAdapter(emptyList(), args.weekCount)
+        var adapter = WorkoutAdapter(emptyList(), args.weekCount, SetCompleteListener {
+            workoutSet -> workoutViewModel.onSetCompleted(workoutSet)
+        })
         binding.setList.adapter = adapter
 
         workoutViewModel.setList.observe(viewLifecycleOwner) {
-            adapter = workoutViewModel.setList.value?.let { setList -> WorkoutAdapter(setList, args.weekCount) }!!
+            adapter = workoutViewModel.setList.value?.let { setList ->
+                WorkoutAdapter(
+                    setList,
+                    args.weekCount,
+                    SetCompleteListener {
+                        workoutSet -> workoutViewModel.onSetCompleted(workoutSet)
+                    }
+                )
+            }!!
             binding.setList.adapter = adapter
         }
 

@@ -5,6 +5,7 @@ data class WorkoutSet (
     val setCount: Int,
     var weight: Float,
     val repCount: Int,
+    val weekCount: Int,
 ) {
     init {
         weight = roundDownToNearestIncrement(weight)

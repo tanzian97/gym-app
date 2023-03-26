@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--    <data>-->
-
-    <!--        <variable-->
-    <!--            name="sleep"-->
-    <!--            type="com.example.android.trackmysleepquality.database.SleepNight" />-->
-    <!--        <variable-->
-    <!--            name="clickListener"-->
-    <!--            type="com.example.android.trackmysleepquality.sleeptracker.SleepNightListener" />-->
-    <!--    </data>-->
+    <data>
+        <variable
+            name="workoutSet"
+            type="com.example.gymapp.ui.workout.WorkoutSet" />
+        <variable
+            name="weekCount"
+            type="Integer" />
+        <variable
+            name="clickListener"
+            type="com.example.gymapp.ui.workout.SetCompleteListener" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        >
-
-        <!--        app:sleepQualityString="@{sleep}-->
+        android:onClick="@{() -> clickListener.onClick(workoutSet)}" >
 
         <TextView
             android:id="@+id/set_type"
@@ -32,7 +31,8 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:workoutSetType="@{workoutSet.setType}" />
 
         <TextView
             android:id="@+id/set_details"
@@ -44,7 +44,8 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:workoutSetDetails="@{workoutSet}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

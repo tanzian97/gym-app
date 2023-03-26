@@ -1,15 +1,14 @@
 package com.example.gymapp.ui.workout
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gymapp.R
+import com.example.gymapp.databinding.ListWorkoutSetBinding
 
 class WorkoutAdapter(
     private val data: List<WorkoutSet>,
-    private val weekCount: Int
+    private val weekCount: Int,
+    private val clickListener: SetCompleteListener
 ): RecyclerView.Adapter<WorkoutAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -17,39 +16,32 @@ class WorkoutAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position], weekCount)
+        holder.bind(data[position], weekCount, clickListener)
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    class ViewHolder private constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val setType: TextView = itemView.findViewById(R.id.set_type)
-        private val setDetails: TextView = itemView.findViewById(R.id.set_details)
+    class ViewHolder private constructor(val binding: ListWorkoutSetBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: WorkoutSet, weekCount: Int) {
-            setType.text = item.setType.toString()
-            setDetails.text = formatSetDetails(item.weight, item.repCount, item.setCount, weekCount)
+        fun bind(item: WorkoutSet, weekCount: Int, clickListener: SetCompleteListener) {
+            binding.workoutSet = item
+            binding.weekCount = weekCount
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
         }
-
-        private fun formatSetDetails(weight: Float, repCount: Int, setCount: Int, weekCount: Int): String {
-            return if (weekCount != 4 && setCount == 6) {
-                "${weight.format(1)} kg x $repCount+"
-            } else {
-                "${weight.format(1)} kg x $repCount"
-            }
-        }
-
-        private fun Float.format(digits: Int) = "%.${digits}f".format(this)
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val view = layoutInflater.inflate(R.layout.list_workout_set, parent, false)
-                return ViewHolder(view)
+                val binding = ListWorkoutSetBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
             }
         }
     }
+}
 
+class SetCompleteListener(val clickListener: (workoutSet: WorkoutSet) -> Unit) {
+    fun onClick(workoutSet: WorkoutSet) = clickListener(workoutSet)
 }

@@ -3,6 +3,7 @@ package com.example.gymapp.ui.workout
 import androidx.lifecycle.*
 import com.example.gymapp.database.TrainingMax
 import com.example.gymapp.database.TrainingMaxDatabaseDao
+import com.example.gymapp.ui.home.WorkoutDay
 import com.example.gymapp.ui.home.WorkoutType
 import kotlinx.coroutines.*
 
@@ -55,24 +56,24 @@ class WorkoutViewModel(
         val workoutSets = mutableListOf<WorkoutSet>()
 
         if (maximum != null) {
-            workoutSets.addAll(getWarmUpWorkoutSets(maximum))
-            workoutSets.addAll(getMainWorkoutSets(weekCount, maximum))
-            workoutSets.addAll(getBBBWorkoutSets(maximum))
+            workoutSets.addAll(getWarmUpWorkoutSets(maximum, weekCount))
+            workoutSets.addAll(getMainWorkoutSets(maximum, weekCount))
+            workoutSets.addAll(getBBBWorkoutSets(maximum, weekCount))
         }
         return workoutSets
     }
 
-    private fun getWarmUpWorkoutSets(max: Float): List<WorkoutSet> {
+    private fun getWarmUpWorkoutSets(max: Float, weekCount: Int): List<WorkoutSet> {
         val sets = mutableListOf<WorkoutSet>()
         val warmUpSetMultipliers = listOf(0.4f, 0.5f, 0.6f)
 
         for (i in 0..2) {
-            sets.add(WorkoutSet(WorkoutSetType.WARM_UP, i + 1, warmUpSetMultipliers[i] * max, 5))
+            sets.add(WorkoutSet(WorkoutSetType.WARM_UP, i + 1, warmUpSetMultipliers[i] * max, 5, weekCount))
         }
         return sets
     }
 
-    private fun getMainWorkoutSets(weekCount: Int, max: Float): List<WorkoutSet> {
+    private fun getMainWorkoutSets(max: Float, weekCount: Int): List<WorkoutSet> {
         val mapWeekToMultiplierSets = mapOf(
             1 to listOf(0.65f, 0.75f, 0.85f),
             2 to listOf(0.7f, 0.8f, 0.9f),
@@ -91,19 +92,23 @@ class WorkoutViewModel(
         val mainSetReps = mapWeekToReps[weekCount]!!
 
         for (i in 0..2) {
-            sets.add(WorkoutSet(WorkoutSetType.MAIN, i + 4, mainSetMultipliers[i] * max, mainSetReps[i]))
+            sets.add(WorkoutSet(WorkoutSetType.MAIN, i + 4, mainSetMultipliers[i] * max, mainSetReps[i], weekCount))
         }
         return sets
     }
 
-    private fun getBBBWorkoutSets(max: Float): List<WorkoutSet> {
+    private fun getBBBWorkoutSets(max: Float, weekCount: Int): List<WorkoutSet> {
         val sets = mutableListOf<WorkoutSet>()
         val bbbSetMultiplier = 0.5f
 
         for (i in 0..4) {
-            sets.add(WorkoutSet(WorkoutSetType.BBB, i + 7, bbbSetMultiplier * max, 10))
+            sets.add(WorkoutSet(WorkoutSetType.BBB, i + 7, bbbSetMultiplier * max, 10, weekCount))
         }
         return sets
+    }
+
+    fun onSetCompleted(workoutSet: WorkoutSet) {
+//
     }
 
     override fun onCleared() {
