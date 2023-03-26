@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SettingsDialogViewModel(
-    private val dao: TrainingMaxDatabaseDao
+    private val database: TrainingMaxDatabaseDao
 ): ViewModel() {
 
     var squatMax: Float = 0f
@@ -53,7 +53,7 @@ class SettingsDialogViewModel(
 
     private suspend fun update(trainingMax: TrainingMax) {
         withContext(Dispatchers.IO) {
-            dao.upsertTrainingMax(trainingMax)
+            database.upsertTrainingMax(trainingMax)
         }
     }
 

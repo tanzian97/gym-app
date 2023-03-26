@@ -8,7 +8,7 @@ import com.example.gymapp.database.TrainingMaxDatabaseDao
 import kotlinx.coroutines.*
 
 class SettingsViewModel(
-    val dao: TrainingMaxDatabaseDao
+    val database: TrainingMaxDatabaseDao
 ) : ViewModel() {
 
     private var viewmodelJob = Job()
@@ -29,7 +29,7 @@ class SettingsViewModel(
 
     private suspend fun getLatestTrainingMaxesFromDatabase(): TrainingMax? {
         return withContext(Dispatchers.IO) {
-            dao.getLatestTrainingMax()
+            database.getLatestTrainingMax()
         }
     }
 
@@ -71,7 +71,7 @@ class SettingsViewModel(
 
     private suspend fun update(trainingMax: TrainingMax) {
         withContext(Dispatchers.IO) {
-            dao.upsertTrainingMax(trainingMax)
+            database.upsertTrainingMax(trainingMax)
         }
     }
 
