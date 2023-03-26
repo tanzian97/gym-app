@@ -27,9 +27,11 @@ class WorkoutFragment: Fragment(){
 
         val args: WorkoutFragmentArgs by navArgs()
 
-        val viewModelFactory = WorkoutViewModelFactory(dataSource, args.workoutType, args.weekCount)
+        val viewModelFactory = WorkoutViewModelFactory(dataSource)
 
         val workoutViewModel = ViewModelProvider(this, viewModelFactory)[WorkoutViewModel::class.java]
+
+        _binding = FragmentWorkoutBinding.inflate(inflater, container, false)
 
         workoutViewModel.trainingMax.observe(viewLifecycleOwner) {
             it?.let {
@@ -40,10 +42,10 @@ class WorkoutFragment: Fragment(){
             }
         }
 
-        _binding = FragmentWorkoutBinding.inflate(inflater, container, false)
-
-        val adapter = WorkoutAdapter(workoutViewModel.setList, args.weekCount)
-        binding.setList.adapter = adapter
+        workoutViewModel.setList.observe(viewLifecycleOwner) {
+            val adapter = workoutViewModel.setList.value?.let { list -> WorkoutAdapter(list, args.weekCount) }
+            binding.setList.adapter = adapter
+        }
 
         return binding.root
     }

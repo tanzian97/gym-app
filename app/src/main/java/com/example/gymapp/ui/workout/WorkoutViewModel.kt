@@ -9,8 +9,6 @@ import kotlinx.coroutines.*
 
 class WorkoutViewModel(
     val database: TrainingMaxDatabaseDao,
-    workoutType: WorkoutType,
-    weekCount: Int
 ) : ViewModel() {
 
     private var viewmodelJob = Job()
@@ -20,21 +18,10 @@ class WorkoutViewModel(
     // TODO if training max has not been set, should get user to set it
     var trainingMax = MutableLiveData<TrainingMax?>()
 
-    private var max = MutableLiveData<Float>()
-
-    private val _setList = mutableListOf<WorkoutSet>()
-
-    val setList: List<WorkoutSet>
-        get() = _setList
+    var setList = MutableLiveData<List<WorkoutSet>>()
 
     init {
         initialiseLatestTrainingMaxes()
-    }
-
-    fun addSetsToList(maximum: Float, weekCount: Int) {
-        _setList.addAll(getWarmUpWorkoutSets(maximum))
-        _setList.addAll(getMainWorkoutSets(weekCount, maximum))
-        _setList.addAll(getBBBWorkoutSets(maximum))
     }
 
     private fun initialiseLatestTrainingMaxes() {
@@ -59,6 +46,16 @@ class WorkoutViewModel(
             WorkoutType.DEADLIFT -> trainingMax.value?.deadliftMax
             WorkoutType.OHP -> trainingMax.value?.ohpMax
         }
+    }
+
+    fun addSetsToList(maximum: Float, weekCount: Int) {
+        val workoutSets = mutableListOf<WorkoutSet>()
+
+        workoutSets.addAll(getWarmUpWorkoutSets(maximum))
+        workoutSets.addAll(getMainWorkoutSets(weekCount, maximum))
+        workoutSets.addAll(getBBBWorkoutSets(maximum))
+
+        setList.value = workoutSets
     }
 
     private fun getWarmUpWorkoutSets(max: Float): List<WorkoutSet> {
