@@ -68,10 +68,10 @@ class SettingsDialogFragment : DialogFragment() {
 
     private fun onSaveMaxes() {
         val trainingMaxes = TrainingMax(
-            squatMax = binding.editSquatValue.text.toString().toFloat(),
-            benchMax = binding.editBenchValue.text.toString().toFloat(),
-            deadliftMax = binding.editDeadliftValue.text.toString().toFloat(),
-            ohpMax = binding.editOhpValue.text.toString().toFloat(),
+            squatMax = binding.editSquatValue.text.toString().toFloatOrNull() ?: 0f,
+            benchMax = binding.editBenchValue.text.toString().toFloatOrNull() ?: 0f,
+            deadliftMax = binding.editDeadliftValue.text.toString().toFloatOrNull() ?: 0f,
+            ohpMax = binding.editOhpValue.text.toString().toFloatOrNull() ?: 0f,
         )
 
         settingsViewModel.onSaveMaxes(trainingMaxes)
