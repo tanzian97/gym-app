@@ -1,17 +1,26 @@
 package com.example.gymapp.ui.workout
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.gymapp.database.TrainingMax
 import com.example.gymapp.database.TrainingMaxDatabaseDao
 import com.example.gymapp.ui.home.WorkoutType
+import kotlinx.coroutines.*
 
 class WorkoutViewModel(
-    database: TrainingMaxDatabaseDao,
+    val database: TrainingMaxDatabaseDao,
     workoutType: WorkoutType,
     weekCount: Int
 ) : ViewModel() {
 
+    private var viewmodelJob = Job()
+
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewmodelJob)
+
     // TODO if training max has not been set, should get user to set it
-//    private val trainingMax = database.getLatestTrainingMax()
+    private val trainingMax = MutableLiveData<TrainingMax>()
+
+    private var max = MutableLiveData<Float>()
 
     private val _setList = mutableListOf<WorkoutSet>()
 
@@ -19,19 +28,36 @@ class WorkoutViewModel(
         get() = _setList
 
     init {
-//        val max: Float? = when (workoutType) {
-//            WorkoutType.SQUAT -> trainingMax.value?.squatMax
-//            WorkoutType.BENCH -> trainingMax.value?.benchMax
-//            WorkoutType.DEADLIFT -> trainingMax.value?.deadliftMax
-//            WorkoutType.OHP -> trainingMax.value?.ohpMax
-//        }
+        // Issue is that trainingMax is null.
+        initialiseLatestTrainingMaxes()
 
-        val max: Float? = 97.5f
+        max.value = getMaxForType(workoutType)
 
-        if (max != null) {
-            _setList.addAll(getWarmUpWorkoutSets(max))
-            _setList.addAll(getMainWorkoutSets(weekCount, max))
-            _setList.addAll(getBBBWorkoutSets(max))
+        val maximum = max.value ?: 0f
+
+        _setList.addAll(getWarmUpWorkoutSets(maximum))
+        _setList.addAll(getMainWorkoutSets(weekCount, maximum))
+        _setList.addAll(getBBBWorkoutSets(maximum))
+    }
+
+    private fun initialiseLatestTrainingMaxes() {
+        uiScope.launch {
+            trainingMax.value = getLatestTrainingMaxesFromDatabase()
+        }
+    }
+
+    private suspend fun getLatestTrainingMaxesFromDatabase(): TrainingMax? {
+        return withContext(Dispatchers.IO) {
+            database.getLatestTrainingMax()
+        }
+    }
+
+    private fun getMaxForType(workoutType: WorkoutType): Float? {
+        return when (workoutType) {
+            WorkoutType.SQUAT -> trainingMax.value?.squatMax
+            WorkoutType.BENCH -> trainingMax.value?.benchMax
+            WorkoutType.DEADLIFT -> trainingMax.value?.deadliftMax
+            WorkoutType.OHP -> trainingMax.value?.ohpMax
         }
     }
 
@@ -77,5 +103,10 @@ class WorkoutViewModel(
             sets.add(WorkoutSet(WorkoutSetType.BBB, i + 7, bbbSetMultiplier * max, 10))
         }
         return sets
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewmodelJob.cancel()
     }
 }
