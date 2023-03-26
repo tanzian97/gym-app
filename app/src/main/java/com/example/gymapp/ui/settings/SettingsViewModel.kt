@@ -17,6 +17,14 @@ class SettingsViewModel(
 
     private val latestTrainingMaxes = MutableLiveData<TrainingMax>()
 
+    var squatMax: Float = latestTrainingMaxes.value?.squatMax ?: 0f
+
+    var benchMax: Float = latestTrainingMaxes.value?.benchMax ?: 0f
+
+    var deadliftMax: Float = latestTrainingMaxes.value?.deadliftMax ?: 0f
+
+    var ohpMax: Float = latestTrainingMaxes.value?.ohpMax ?: 0f
+
     init {
         initialiseLatestTrainingMaxes()
     }
@@ -32,11 +40,6 @@ class SettingsViewModel(
             database.getLatestTrainingMax()
         }
     }
-
-    var squatMax: Float = latestTrainingMaxes.value?.squatMax ?: 0f
-    var benchMax: Float = latestTrainingMaxes.value?.benchMax ?: 0f
-    var deadliftMax: Float = latestTrainingMaxes.value?.deadliftMax ?: 0f
-    var ohpMax: Float = latestTrainingMaxes.value?.ohpMax ?: 0f
 
     fun onSaveMaxes(trainingMax: TrainingMax) {
         squatMax = trainingMax.squatMax
