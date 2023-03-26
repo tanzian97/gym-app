@@ -1,14 +1,16 @@
 package com.example.gymapp.ui.workout
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gymapp.R
 import com.example.gymapp.databinding.ListWorkoutSetBinding
 
 class WorkoutAdapter(
     private val data: List<WorkoutSet>,
     private val weekCount: Int,
-    private val onClickListener: OnClickListener
 ): RecyclerView.Adapter<WorkoutAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,7 +21,7 @@ class WorkoutAdapter(
         holder.bind(data[position], weekCount)
 
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(data[position])
+            holder.itemView.setBackgroundColor(Color.parseColor("#03fcad"))
         }
     }
 
@@ -42,9 +44,5 @@ class WorkoutAdapter(
                 return ViewHolder(binding)
             }
         }
-    }
-
-    class OnClickListener(val clickListener: (workoutSet: WorkoutSet) -> Unit) {
-        fun onClick(workoutSet: WorkoutSet) = clickListener(workoutSet)
     }
 }
