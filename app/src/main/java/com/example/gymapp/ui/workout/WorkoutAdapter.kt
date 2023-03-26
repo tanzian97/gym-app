@@ -8,7 +8,6 @@ import com.example.gymapp.databinding.ListWorkoutSetBinding
 class WorkoutAdapter(
     private val data: List<WorkoutSet>,
     private val weekCount: Int,
-    private val clickListener: SetCompleteListener
 ): RecyclerView.Adapter<WorkoutAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -16,7 +15,7 @@ class WorkoutAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position], weekCount, clickListener)
+        holder.bind(data[position], weekCount)
     }
 
     override fun getItemCount(): Int {
@@ -25,10 +24,9 @@ class WorkoutAdapter(
 
     class ViewHolder private constructor(val binding: ListWorkoutSetBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: WorkoutSet, weekCount: Int, clickListener: SetCompleteListener) {
+        fun bind(item: WorkoutSet, weekCount: Int) {
             binding.workoutSet = item
             binding.weekCount = weekCount
-            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -40,8 +38,4 @@ class WorkoutAdapter(
             }
         }
     }
-}
-
-class SetCompleteListener(val clickListener: (workoutSet: WorkoutSet) -> Unit) {
-    fun onClick(workoutSet: WorkoutSet) = clickListener(workoutSet)
 }

@@ -10,16 +10,12 @@
         <variable
             name="weekCount"
             type="Integer" />
-        <variable
-            name="clickListener"
-            type="com.example.gymapp.ui.workout.SetCompleteListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:onClick="@{() -> clickListener.onClick(workoutSet)}" >
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/set_type"

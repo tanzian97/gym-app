@@ -107,10 +107,6 @@ class WorkoutViewModel(
         return sets
     }
 
-    fun onSetCompleted(workoutSet: WorkoutSet) {
-//
-    }
-
     override fun onCleared() {
         super.onCleared()
         viewmodelJob.cancel()

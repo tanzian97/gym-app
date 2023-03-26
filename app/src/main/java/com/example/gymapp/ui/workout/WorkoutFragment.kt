@@ -35,20 +35,12 @@ class WorkoutFragment: Fragment(){
 
         _binding = FragmentWorkoutBinding.inflate(inflater, container, false)
 
-        var adapter = WorkoutAdapter(emptyList(), args.weekCount, SetCompleteListener {
-            workoutSet -> workoutViewModel.onSetCompleted(workoutSet)
-        })
+        var adapter = WorkoutAdapter(emptyList(), args.weekCount)
         binding.setList.adapter = adapter
 
         workoutViewModel.setList.observe(viewLifecycleOwner) {
             adapter = workoutViewModel.setList.value?.let { setList ->
-                WorkoutAdapter(
-                    setList,
-                    args.weekCount,
-                    SetCompleteListener {
-                        workoutSet -> workoutViewModel.onSetCompleted(workoutSet)
-                    }
-                )
+                WorkoutAdapter(setList, args.weekCount)
             }!!
             binding.setList.adapter = adapter
         }
