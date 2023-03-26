@@ -11,7 +11,7 @@ class WorkoutViewModel(
 ) : ViewModel() {
 
     // TODO if training max has not been set, should get user to set it
-    private val trainingMax = dao.getLatestTrainingMax()
+//    private val trainingMax = dao.getLatestTrainingMax()
 
     private val _setList = mutableListOf<WorkoutSet>()
 

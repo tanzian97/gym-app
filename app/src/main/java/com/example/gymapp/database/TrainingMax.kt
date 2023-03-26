@@ -10,7 +10,7 @@ data class TrainingMax(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    val id: Int,
+    val id: Long = 0L,
 
     @ColumnInfo(name = "squat_max")
     val squatMax: Float,

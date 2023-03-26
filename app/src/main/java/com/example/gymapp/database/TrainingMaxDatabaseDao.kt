@@ -16,6 +16,6 @@ interface TrainingMaxDatabaseDao {
     suspend fun deleteTrainingMax(trainingMax: TrainingMax)
 
     @Query("SELECT * FROM table_training_max ORDER BY id DESC LIMIT 1")
-    fun getLatestTrainingMax(): TrainingMax?
+    suspend fun getLatestTrainingMax(): TrainingMax?
 
 }

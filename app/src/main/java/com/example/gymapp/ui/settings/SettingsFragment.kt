@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.gymapp.database.TrainingMaxDatabase
 import com.example.gymapp.databinding.FragmentSettingsBinding
+import com.example.gymapp.ui.workout.WorkoutViewModelFactory
 
 class SettingsFragment : Fragment() {
 
@@ -19,8 +21,13 @@ class SettingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val settingsViewModel =
-            ViewModelProvider(this).get(SettingsViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+
+        val dataSource = TrainingMaxDatabase.getInstance(application).trainingMaxDatabaseDao
+
+        val viewModelFactory = SettingsViewModelFactory(dataSource)
+
+        val settingsViewModel = ViewModelProvider(this, viewModelFactory)[SettingsViewModel::class.java]
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
