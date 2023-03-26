@@ -1,7 +1,6 @@
 package com.example.gymapp.ui.workout
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.gymapp.database.TrainingMax
 import com.example.gymapp.database.TrainingMaxDatabaseDao
 import com.example.gymapp.ui.home.WorkoutType
@@ -9,6 +8,8 @@ import kotlinx.coroutines.*
 
 class WorkoutViewModel(
     val database: TrainingMaxDatabaseDao,
+    val workoutType: WorkoutType,
+    val weekCount: Int
 ) : ViewModel() {
 
     private var viewmodelJob = Job()
@@ -18,7 +19,9 @@ class WorkoutViewModel(
     // TODO if training max has not been set, should get user to set it
     var trainingMax = MutableLiveData<TrainingMax?>()
 
-    var setList = MutableLiveData<List<WorkoutSet>>()
+    val setList : LiveData<List<WorkoutSet>> = trainingMax.map {
+        getWorkoutSetList(getMaxForType(workoutType), weekCount)
+    }
 
     init {
         initialiseLatestTrainingMaxes()
@@ -39,7 +42,7 @@ class WorkoutViewModel(
         }
     }
 
-    fun getMaxForType(workoutType: WorkoutType): Float? {
+    private fun getMaxForType(workoutType: WorkoutType): Float? {
         return when (workoutType) {
             WorkoutType.SQUAT -> trainingMax.value?.squatMax
             WorkoutType.BENCH -> trainingMax.value?.benchMax
@@ -48,14 +51,15 @@ class WorkoutViewModel(
         }
     }
 
-    fun addSetsToList(maximum: Float, weekCount: Int) {
+    private fun getWorkoutSetList(maximum: Float?, weekCount: Int): List<WorkoutSet> {
         val workoutSets = mutableListOf<WorkoutSet>()
 
-        workoutSets.addAll(getWarmUpWorkoutSets(maximum))
-        workoutSets.addAll(getMainWorkoutSets(weekCount, maximum))
-        workoutSets.addAll(getBBBWorkoutSets(maximum))
-
-        setList.value = workoutSets
+        if (maximum != null) {
+            workoutSets.addAll(getWarmUpWorkoutSets(maximum))
+            workoutSets.addAll(getMainWorkoutSets(weekCount, maximum))
+            workoutSets.addAll(getBBBWorkoutSets(maximum))
+        }
+        return workoutSets
     }
 
     private fun getWarmUpWorkoutSets(max: Float): List<WorkoutSet> {

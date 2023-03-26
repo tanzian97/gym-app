@@ -7,10 +7,12 @@ import com.example.gymapp.ui.home.WorkoutType
 
 class WorkoutViewModelFactory(
     private val dataSource: TrainingMaxDatabaseDao,
+    private val workoutType: WorkoutType,
+    private val weekCount: Int
     ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(WorkoutViewModel::class.java)) {
-            return WorkoutViewModel(dataSource) as T
+            return WorkoutViewModel(dataSource, workoutType, weekCount) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
