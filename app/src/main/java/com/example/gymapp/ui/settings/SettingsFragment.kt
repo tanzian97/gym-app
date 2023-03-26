@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.gymapp.R
 import com.example.gymapp.database.TrainingMaxDatabase
 import com.example.gymapp.databinding.FragmentSettingsBinding
 
@@ -32,28 +33,27 @@ class SettingsFragment : Fragment() {
 
         settingsViewModel.squatMax.observe(viewLifecycleOwner) {
             it?.let {
-                binding.squatMaxValue.text = it.toString()
+                binding.squatMaxValue.text = getString(R.string.training_max_weight, it)
             }
         }
 
         settingsViewModel.benchMax.observe(viewLifecycleOwner) {
             it?.let {
-                binding.benchMaxValue.text = it.toString()
+                binding.benchMaxValue.text = getString(R.string.training_max_weight, it)
             }
         }
 
         settingsViewModel.deadliftMax.observe(viewLifecycleOwner) {
             it?.let {
-                binding.deadliftMaxValue.text = it.toString()
+                binding.deadliftMaxValue.text = getString(R.string.training_max_weight, it)
             }
         }
 
         settingsViewModel.ohpMax.observe(viewLifecycleOwner) {
             it?.let {
-                binding.ohpMaxValue.text = it.toString()
+                binding.ohpMaxValue.text = getString(R.string.training_max_weight, it)
             }
         }
-
 
         val fab: View = binding.fab
         fab.setOnClickListener { view ->
