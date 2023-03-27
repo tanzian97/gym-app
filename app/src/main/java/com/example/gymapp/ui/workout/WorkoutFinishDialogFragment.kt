@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.gymapp.R
 import com.example.gymapp.databinding.FragmentWorkoutFinishDialogBinding
+import com.example.gymapp.ui.home.HomeFragmentDirections
 
 class WorkoutFinishDialogFragment(
     private val amrapRepCount: Int,
@@ -49,11 +51,7 @@ class WorkoutFinishDialogFragment(
             workoutViewModel.onSaveSet(mainSetWeights[1], binding.secondMainSetReps.text.toString().toIntOrNull()?: 0, max)
             workoutViewModel.onSaveSet(mainSetWeights[2], binding.thirdMainSetReps.text.toString().toIntOrNull()?: 0, max)
 
-
-            // TODO: Upsert into session DB
-
-
-
+            workoutViewModel.onWorkoutComplete()
             dismiss()
         }
 

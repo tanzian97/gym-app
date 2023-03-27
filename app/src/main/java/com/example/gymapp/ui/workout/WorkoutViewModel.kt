@@ -5,6 +5,7 @@ import com.example.gymapp.database.SessionDatabaseDao
 import com.example.gymapp.database.SetDatabaseDao
 import com.example.gymapp.database.TrainingMax
 import com.example.gymapp.database.TrainingMaxDatabaseDao
+import com.example.gymapp.ui.home.WorkoutDay
 import com.example.gymapp.ui.home.WorkoutType
 import kotlinx.coroutines.*
 import java.util.*
@@ -26,6 +27,11 @@ class WorkoutViewModel(
     val setList : LiveData<List<WorkoutSet>> = trainingMax.map {
         getWorkoutSetList(getMaxForType(workoutType), weekCount)
     }
+
+    private val _navigateToHome = MutableLiveData<Boolean>()
+
+    val navigateToHome: LiveData<Boolean?>
+        get() = _navigateToHome
 
     init {
         initialiseLatestTrainingMaxes()
@@ -150,5 +156,13 @@ class WorkoutViewModel(
     override fun onCleared() {
         super.onCleared()
         viewmodelJob.cancel()
+    }
+
+    fun onWorkoutComplete() {
+        _navigateToHome.value = true
+    }
+
+    fun doneNavigating() {
+        _navigateToHome.value = false
     }
 }

@@ -9,6 +9,7 @@ import android.widget.NumberPicker
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.gymapp.database.SessionDatabase
 import com.example.gymapp.database.SetDatabase
@@ -88,6 +89,15 @@ class WorkoutFragment: Fragment(){
         finishWorkoutButton.setOnClickListener {
             WorkoutFinishDialogFragment(amrapRepCount)
                 .show(childFragmentManager, WorkoutFinishDialogFragment.TAG)
+        }
+
+        workoutViewModel.navigateToHome.observe(viewLifecycleOwner) {
+            if (it == true) {
+                this.findNavController().navigate(
+                    WorkoutFragmentDirections.actionNavigationWorkoutToNavigationHome()
+                )
+                workoutViewModel.doneNavigating()
+            }
         }
 
         return binding.root
