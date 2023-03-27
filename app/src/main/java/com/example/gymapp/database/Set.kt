@@ -12,10 +12,7 @@ data class Set(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "set_id")
-    val setId: Int,
-
-    @ColumnInfo(name = "session_id")
-    val sessionId: Int,
+    val setId: Long = 0L,
 
     @ColumnInfo(name = "date")
     val date: Date,

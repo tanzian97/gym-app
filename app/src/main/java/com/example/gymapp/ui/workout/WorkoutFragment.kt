@@ -10,6 +10,8 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.example.gymapp.database.SessionDatabase
+import com.example.gymapp.database.SetDatabase
 import com.example.gymapp.database.TrainingMaxDatabase
 import com.example.gymapp.databinding.FragmentWorkoutBinding
 
@@ -29,11 +31,15 @@ class WorkoutFragment: Fragment(){
     ): View {
         val application = requireNotNull(this.activity).application
 
-        val dataSource = TrainingMaxDatabase.getInstance(application).trainingMaxDatabaseDao
+        val trainingMaxDataSource = TrainingMaxDatabase.getInstance(application).trainingMaxDatabaseDao
+
+        val setDataSource = SetDatabase.getInstance(application).setDatabaseDao
+
+        val sessionDataSource = SessionDatabase.getInstance(application).sessionDatabaseDao
 
         val args: WorkoutFragmentArgs by navArgs()
 
-        val viewModelFactory = WorkoutViewModelFactory(dataSource, args.workoutType, args.weekCount)
+        val viewModelFactory = WorkoutViewModelFactory(trainingMaxDataSource, setDataSource, sessionDataSource, args.workoutType, args.weekCount)
 
         val workoutViewModel = ViewModelProvider(this, viewModelFactory)[WorkoutViewModel::class.java]
 
@@ -78,7 +84,6 @@ class WorkoutFragment: Fragment(){
             dialog.show()
         }
 
-//        TODO: Pass in weights and reps
         val finishWorkoutButton: View = binding.finishWorkoutButton
         finishWorkoutButton.setOnClickListener {
             WorkoutFinishDialogFragment(amrapRepCount)

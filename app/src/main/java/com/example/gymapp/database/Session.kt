@@ -13,7 +13,7 @@ data class Session(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "session_id")
-    val sessionId: Int,
+    val sessionId: Long = 0L,
 
     @ColumnInfo(name = "date")
     val date: Date,

@@ -35,14 +35,23 @@ class WorkoutFinishDialogFragment(
         binding.firstMainSetReps.setText(mainSetReps[0].toString())
         binding.secondMainSetReps.setText(mainSetReps[1].toString())
 
-        if (amrapRepCount != 0) {
-            binding.thirdMainSetReps.setText(amrapRepCount.toString())
+        val thirdMainSetRepCountDefault = if (amrapRepCount != 0) {
+            amrapRepCount.toString()
         } else {
-            binding.thirdMainSetReps.setText(mainSetReps[2].toString())
+            mainSetReps[2].toString()
         }
+        binding.thirdMainSetReps.setText(thirdMainSetRepCountDefault)
 
         binding.submitButton.setOnClickListener{
-//            TODO: Upsert into session and set DBs
+            workoutViewModel.onSaveSet(mainSetWeights[0], binding.firstMainSetReps.text.toString().toIntOrNull()?: 0)
+            workoutViewModel.onSaveSet(mainSetWeights[1], binding.secondMainSetReps.text.toString().toIntOrNull()?: 0)
+            workoutViewModel.onSaveSet(mainSetWeights[2], binding.thirdMainSetReps.text.toString().toIntOrNull()?: 0)
+
+
+            // TODO: Upsert into session DB
+
+
+
             dismiss()
         }
 

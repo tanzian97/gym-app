@@ -1,14 +1,18 @@
 package com.example.gymapp.ui.workout
 
 import androidx.lifecycle.*
+import com.example.gymapp.database.SessionDatabaseDao
+import com.example.gymapp.database.SetDatabaseDao
 import com.example.gymapp.database.TrainingMax
 import com.example.gymapp.database.TrainingMaxDatabaseDao
-import com.example.gymapp.ui.home.WorkoutDay
 import com.example.gymapp.ui.home.WorkoutType
 import kotlinx.coroutines.*
+import java.util.*
 
 class WorkoutViewModel(
-    val database: TrainingMaxDatabaseDao,
+    private val trainingMaxDatabase: TrainingMaxDatabaseDao,
+    private val setDatabase: SetDatabaseDao,
+    private val sessionDatabase: SessionDatabaseDao,
     val workoutType: WorkoutType,
     val weekCount: Int
 ) : ViewModel() {
@@ -39,7 +43,7 @@ class WorkoutViewModel(
 
     private suspend fun getLatestTrainingMaxesFromDatabase(): TrainingMax? {
         return withContext(Dispatchers.IO) {
-            database.getLatestTrainingMax()
+            trainingMaxDatabase.getLatestTrainingMax()
         }
     }
 
@@ -120,6 +124,26 @@ class WorkoutViewModel(
             sets.add(WorkoutSet(WorkoutSetType.BBB, i + 7, bbbSetMultiplier * max, 10, weekCount))
         }
         return sets
+    }
+
+    fun onSaveSet(weight: Float, repCount: Int) {
+        val set = com.example.gymapp.database.Set(
+            date = Date(),
+            workoutType = workoutType,
+            setType = WorkoutSetType.MAIN,
+            weight = weight,
+            repCount = repCount
+        )
+
+        viewModelScope.launch {
+            update(set)
+        }
+    }
+
+    private suspend fun update(set: com.example.gymapp.database.Set) {
+        withContext(Dispatchers.IO) {
+            setDatabase.upsertSet(set)
+        }
     }
 
     override fun onCleared() {
