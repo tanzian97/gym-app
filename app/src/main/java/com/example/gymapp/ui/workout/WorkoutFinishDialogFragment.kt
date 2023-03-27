@@ -42,10 +42,12 @@ class WorkoutFinishDialogFragment(
         }
         binding.thirdMainSetReps.setText(thirdMainSetRepCountDefault)
 
+        val max = workoutViewModel.getMaxForType(workoutViewModel.workoutType)?: 0f
+
         binding.submitButton.setOnClickListener{
-            workoutViewModel.onSaveSet(mainSetWeights[0], binding.firstMainSetReps.text.toString().toIntOrNull()?: 0)
-            workoutViewModel.onSaveSet(mainSetWeights[1], binding.secondMainSetReps.text.toString().toIntOrNull()?: 0)
-            workoutViewModel.onSaveSet(mainSetWeights[2], binding.thirdMainSetReps.text.toString().toIntOrNull()?: 0)
+            workoutViewModel.onSaveSet(mainSetWeights[0], binding.firstMainSetReps.text.toString().toIntOrNull()?: 0, max)
+            workoutViewModel.onSaveSet(mainSetWeights[1], binding.secondMainSetReps.text.toString().toIntOrNull()?: 0, max)
+            workoutViewModel.onSaveSet(mainSetWeights[2], binding.thirdMainSetReps.text.toString().toIntOrNull()?: 0, max)
 
 
             // TODO: Upsert into session DB

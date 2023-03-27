@@ -21,7 +21,6 @@ class WorkoutViewModel(
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewmodelJob)
 
-    // TODO if training max has not been set, should get user to set it
     var trainingMax = MutableLiveData<TrainingMax?>()
 
     val setList : LiveData<List<WorkoutSet>> = trainingMax.map {
@@ -47,7 +46,7 @@ class WorkoutViewModel(
         }
     }
 
-    private fun getMaxForType(workoutType: WorkoutType): Float? {
+    fun getMaxForType(workoutType: WorkoutType): Float? {
         return when (workoutType) {
             WorkoutType.SQUAT -> trainingMax.value?.squatMax
             WorkoutType.BENCH -> trainingMax.value?.benchMax
@@ -126,11 +125,13 @@ class WorkoutViewModel(
         return sets
     }
 
-    fun onSaveSet(weight: Float, repCount: Int) {
+    fun onSaveSet(weight: Float, repCount: Int, max: Float) {
         val set = com.example.gymapp.database.Set(
             date = Date(),
             workoutType = workoutType,
             setType = WorkoutSetType.MAIN,
+            weekCount = weekCount,
+            trainingMax = max,
             weight = weight,
             repCount = repCount
         )

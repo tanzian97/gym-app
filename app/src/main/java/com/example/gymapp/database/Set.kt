@@ -23,6 +23,12 @@ data class Set(
     @ColumnInfo(name = "workout_set_type")
     val setType: WorkoutSetType,
 
+    @ColumnInfo(name = "week_count")
+    val weekCount: Int,
+
+    @ColumnInfo(name = "training_max")
+    val trainingMax: Float,
+
     @ColumnInfo(name = "weight")
     val weight: Float,
 
