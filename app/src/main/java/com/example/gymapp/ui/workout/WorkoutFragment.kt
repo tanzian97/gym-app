@@ -57,7 +57,12 @@ class WorkoutFragment: Fragment(){
             val numberPicker = NumberPicker(requireActivity())
             numberPicker.minValue = 0
             numberPicker.maxValue = 30
-            numberPicker.value = 5
+            numberPicker.value = when (args.weekCount) {
+                1 -> 5
+                2 -> 3
+                3 -> 1
+                else -> 5
+            }
             numberPicker.wrapSelectorWheel = true
 
             val dialog = AlertDialog.Builder(requireContext())

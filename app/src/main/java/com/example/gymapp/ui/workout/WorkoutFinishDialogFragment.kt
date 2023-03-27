@@ -23,7 +23,10 @@ class WorkoutFinishDialogFragment(private val amrapRepCount: Int) : DialogFragme
     ): View {
         _binding = FragmentWorkoutFinishDialogBinding.inflate(inflater, container, false)
 
-        binding.thirdMainSetReps.setText(amrapRepCount)
+//        binding.firstMainSetReps.setText()
+//        binding.secondMainSetReps.setText()
+
+        binding.thirdMainSetReps.setText(amrapRepCount.toString())
 
         binding.finishButton.setOnClickListener{
 //            TODO: Upsert into session and set DBs
