@@ -74,7 +74,7 @@ class WorkoutFragment: Fragment(){
             numberPicker.wrapSelectorWheel = true
 
             val dialog = AlertDialog.Builder(requireContext())
-                .setTitle("Completed reps for AMRAP set")
+                .setTitle("Reps completed for AMRAP set")
                 .setView(numberPicker)
                 .setPositiveButton("OK") { _, _ ->
                     amrapRepCount = numberPicker.value
