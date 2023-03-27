@@ -49,7 +49,9 @@ class WorkoutFragment: Fragment(){
         }
 
         val recordAmrapButton: View = binding.recordAmrapButton
-//        TODO: Disable if no AMRAP set (deload)
+        if (args.weekCount == 4) {
+            recordAmrapButton.isEnabled = false
+        }
 
         recordAmrapButton.setOnClickListener {
             val numberPicker = NumberPicker(requireActivity())
