@@ -12,7 +12,7 @@ import com.example.gymapp.databinding.FragmentSettingsDialogBinding
 
 class SettingsDialogFragment : DialogFragment() {
 
-    private val settingsViewModel: SettingsViewModel by viewModels(ownerProducer = { requireParentFragment()} )
+    private val settingsViewModel: SettingsViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
     private var _binding: FragmentSettingsDialogBinding? = null
 

@@ -2,13 +2,10 @@ package com.example.gymapp.ui.workout
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.NumberPicker
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -52,6 +49,8 @@ class WorkoutFragment: Fragment(){
         }
 
         val recordAmrapButton: View = binding.recordAmrapButton
+//        TODO: Disable if no AMRAP set (deload)
+
         recordAmrapButton.setOnClickListener {
             val numberPicker = NumberPicker(requireActivity())
             numberPicker.minValue = 0
@@ -60,7 +59,7 @@ class WorkoutFragment: Fragment(){
             numberPicker.wrapSelectorWheel = true
 
             val dialog = AlertDialog.Builder(requireContext())
-                .setTitle("Reps done for AMRAP set")
+                .setTitle("Completed reps for AMRAP set")
                 .setView(numberPicker)
                 .setPositiveButton("OK") { _, _ ->
                     amrapRepCount = numberPicker.value
@@ -71,10 +70,12 @@ class WorkoutFragment: Fragment(){
             dialog.show()
         }
 
-//        val finishWorkoutButton: View = binding.finishWorkoutButton
-//        finishWorkoutButton.setOnClickListener {
-//
-//        }
+//        TODO: Pass in weights and reps
+        val finishWorkoutButton: View = binding.finishWorkoutButton
+        finishWorkoutButton.setOnClickListener {
+            WorkoutFinishDialogFragment(amrapRepCount)
+                .show(childFragmentManager, WorkoutFinishDialogFragment.TAG)
+        }
 
         return binding.root
     }
