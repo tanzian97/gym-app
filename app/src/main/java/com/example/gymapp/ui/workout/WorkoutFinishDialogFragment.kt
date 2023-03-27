@@ -41,7 +41,7 @@ class WorkoutFinishDialogFragment(
             binding.thirdMainSetReps.setText(mainSetReps[2].toString())
         }
 
-        binding.finishButton.setOnClickListener{
+        binding.submitButton.setOnClickListener{
 //            TODO: Upsert into session and set DBs
             dismiss()
         }
