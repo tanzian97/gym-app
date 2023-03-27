@@ -78,12 +78,13 @@ class SettingsDialogFragment : DialogFragment() {
     }
 
     private fun onAutoIncrementMaxes() {
-        val increment = 2.5f
+        val upperBodyIncrement = 2.5f
+        val lowerBodyIncrement = 5f
 
-        settingsViewModel.editSquatMax.value = settingsViewModel.editSquatMax.value?.plus(increment)
-        settingsViewModel.editBenchMax.value = settingsViewModel.editBenchMax.value?.plus(increment)
-        settingsViewModel.editDeadliftMax.value = settingsViewModel.editDeadliftMax.value?.plus(increment)
-        settingsViewModel.editOhpMax.value = settingsViewModel.editOhpMax.value?.plus(increment)
+        settingsViewModel.editSquatMax.value = settingsViewModel.editSquatMax.value?.plus(lowerBodyIncrement)
+        settingsViewModel.editBenchMax.value = settingsViewModel.editBenchMax.value?.plus(upperBodyIncrement)
+        settingsViewModel.editDeadliftMax.value = settingsViewModel.editDeadliftMax.value?.plus(lowerBodyIncrement)
+        settingsViewModel.editOhpMax.value = settingsViewModel.editOhpMax.value?.plus(upperBodyIncrement)
     }
 
     companion object {
