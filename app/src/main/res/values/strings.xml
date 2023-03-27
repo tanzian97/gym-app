@@ -7,4 +7,6 @@
     <string name="edit_training_max">Edit Training Maxes</string>
     <string name="edit_fab_description">Edit floating action button</string>
     <string name="training_max_weight">%1$.1f kg</string>
+    <string name="record_amrap_text">Record AMRAP</string>
+    <string name="finish_workout_text">Finish Workout</string>
 </resources>

@@ -56,7 +56,7 @@ class SettingsFragment : Fragment() {
         }
 
         val fab: View = binding.fab
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             val args = Bundle()
             settingsViewModel.squatMax.value?.let { args.putFloat("squatMax", it) }
             settingsViewModel.benchMax.value?.let { args.putFloat("benchMax", it) }
