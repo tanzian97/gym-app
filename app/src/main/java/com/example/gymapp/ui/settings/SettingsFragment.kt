@@ -33,25 +33,25 @@ class SettingsFragment : Fragment() {
 
         settingsViewModel.squatMax.observe(viewLifecycleOwner) {
             it?.let {
-                binding.squatMaxValue.text = getString(R.string.training_max_weight, it)
+                binding.squatMaxValue.text = getString(R.string.weight_format_text, it)
             }
         }
 
         settingsViewModel.benchMax.observe(viewLifecycleOwner) {
             it?.let {
-                binding.benchMaxValue.text = getString(R.string.training_max_weight, it)
+                binding.benchMaxValue.text = getString(R.string.weight_format_text, it)
             }
         }
 
         settingsViewModel.deadliftMax.observe(viewLifecycleOwner) {
             it?.let {
-                binding.deadliftMaxValue.text = getString(R.string.training_max_weight, it)
+                binding.deadliftMaxValue.text = getString(R.string.weight_format_text, it)
             }
         }
 
         settingsViewModel.ohpMax.observe(viewLifecycleOwner) {
             it?.let {
-                binding.ohpMaxValue.text = getString(R.string.training_max_weight, it)
+                binding.ohpMaxValue.text = getString(R.string.weight_format_text, it)
             }
         }
 

@@ -73,20 +73,20 @@ class WorkoutViewModel(
         return sets
     }
 
-    private fun getMainWorkoutSets(max: Float, weekCount: Int): List<WorkoutSet> {
-        val mapWeekToMultiplierSets = mapOf(
-            1 to listOf(0.65f, 0.75f, 0.85f),
-            2 to listOf(0.7f, 0.8f, 0.9f),
-            3 to listOf(0.75f, 0.85f, 0.95f),
-            4 to listOf(0.4f, 0.5f, 0.6f)
-        )
-        val mapWeekToReps = mapOf(
-            1 to listOf(5, 5, 5),
-            2 to listOf(3, 3, 3),
-            3 to listOf(5, 3, 1),
-            4 to listOf(5, 5, 5)
-        )
+    private val mapWeekToMultiplierSets = mapOf(
+        1 to listOf(0.65f, 0.75f, 0.85f),
+        2 to listOf(0.7f, 0.8f, 0.9f),
+        3 to listOf(0.75f, 0.85f, 0.95f),
+        4 to listOf(0.4f, 0.5f, 0.6f)
+    )
+    private val mapWeekToReps = mapOf(
+        1 to listOf(5, 5, 5),
+        2 to listOf(3, 3, 3),
+        3 to listOf(5, 3, 1),
+        4 to listOf(5, 5, 5)
+    )
 
+    private fun getMainWorkoutSets(max: Float, weekCount: Int): List<WorkoutSet> {
         val sets = mutableListOf<WorkoutSet>()
         val mainSetMultipliers = mapWeekToMultiplierSets[weekCount]!!
         val mainSetReps = mapWeekToReps[weekCount]!!
@@ -95,6 +95,21 @@ class WorkoutViewModel(
             sets.add(WorkoutSet(WorkoutSetType.MAIN, i + 4, mainSetMultipliers[i] * max, mainSetReps[i], weekCount))
         }
         return sets
+    }
+
+    fun getMainSetWeights(): List<Float> {
+        val max = getMaxForType(workoutType)?: 0f
+
+        val weights = mutableListOf<Float>()
+        for (i in 0..2) {
+            val mainSetMultipliers = mapWeekToMultiplierSets[weekCount]!!
+            weights.add(mainSetMultipliers[i] * max)
+        }
+        return weights
+    }
+
+    fun getMainSetReps(): List<Int> {
+        return mapWeekToReps[weekCount]!!
     }
 
     private fun getBBBWorkoutSets(max: Float, weekCount: Int): List<WorkoutSet> {

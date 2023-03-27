@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -19,7 +20,7 @@ class WorkoutFragment: Fragment(){
 
     private val binding get() = _binding!!
 
-    private var amrapRepCount: Int = 5
+    private var amrapRepCount: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
