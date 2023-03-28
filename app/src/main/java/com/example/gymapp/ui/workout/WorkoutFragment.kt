@@ -15,6 +15,7 @@ import com.example.gymapp.database.SessionDatabase
 import com.example.gymapp.database.SetDatabase
 import com.example.gymapp.database.TrainingMaxDatabase
 import com.example.gymapp.databinding.FragmentWorkoutBinding
+import com.example.gymapp.ui.home.WorkoutType
 
 
 class WorkoutFragment: Fragment(){
@@ -48,6 +49,8 @@ class WorkoutFragment: Fragment(){
 
         var adapter = WorkoutAdapter(emptyList(), args.weekCount)
         binding.setList.adapter = adapter
+
+        binding.workoutInfo.text = formatWorkoutInfo(args.workoutType, args.weekCount)
 
         workoutViewModel.setList.observe(viewLifecycleOwner) {
             adapter = workoutViewModel.setList.value?.let { setList ->
@@ -101,6 +104,27 @@ class WorkoutFragment: Fragment(){
         }
 
         return binding.root
+    }
+
+    private fun formatWorkoutInfo(workoutType: WorkoutType, weekCount: Int): String {
+        return String.format("%s (%s)", formatWorkoutTypeString(workoutType), formatWeekString(weekCount))
+    }
+
+    private fun formatWorkoutTypeString(workoutType: WorkoutType): String {
+        return when (workoutType) {
+            WorkoutType.SQUAT -> "Squat"
+            WorkoutType.BENCH -> "Bench Press"
+            WorkoutType.DEADLIFT -> "Deadlift"
+            WorkoutType.OHP -> "Overhead Press"
+        }
+    }
+
+    private fun formatWeekString(weekCount: Int): String {
+        return if (weekCount < 4) {
+            "Week $weekCount"
+        } else {
+            "Deload"
+        }
     }
 
     override fun onDestroyView() {
