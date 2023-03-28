@@ -1,13 +1,8 @@
 package com.example.gymapp.ui.history
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.gymapp.database.SetDatabaseDao
 
-class HistoryViewModel : ViewModel() {
+class HistoryViewModel(private val setDatabase: SetDatabaseDao) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is the History fragment."
-    }
-    val text: LiveData<String> = _text
 }

@@ -7,14 +7,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
+import com.example.gymapp.database.SessionDatabase
+import com.example.gymapp.database.SetDatabase
+import com.example.gymapp.database.TrainingMaxDatabase
 import com.example.gymapp.databinding.FragmentHistoryBinding
+import com.example.gymapp.ui.workout.WorkoutAdapter
+import com.example.gymapp.ui.workout.WorkoutFragmentArgs
+import com.example.gymapp.ui.workout.WorkoutViewModelFactory
 
 class HistoryFragment : Fragment() {
 
     private var _binding: FragmentHistoryBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,16 +27,29 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val historyViewModel =
-            ViewModelProvider(this).get(HistoryViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+
+        val setDataSource = SetDatabase.getInstance(application).setDatabaseDao
+
+        val viewModelFactory = HistoryViewModelFactory(setDataSource)
+
+        val historyViewModel = ViewModelProvider(this, viewModelFactory)[HistoryViewModel::class.java]
 
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+
+        var adapter = HistoryAdapter(emptyList())
+
+//        historyViewModel.setList.observe(viewLifecycleOwner) {
+//            adapter = workoutViewModel.setList.value?.let { setList ->
+//                HistoryAdapter(setList, args.weekCount)
+//            }!!
+//            binding.setList.adapter = adapter
+//        }
+
+        binding.sessionHistoryList.adapter = adapter
+
         val root: View = binding.root
 
-        val textView: TextView = binding.textHistory
-        historyViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
         return root
     }
 
