@@ -106,7 +106,7 @@ class WorkoutFragment: Fragment(){
     }
 
     private fun formatWorkoutInfo(workoutType: WorkoutType, weekCount: Int): String {
-        return String.format("%s (%s)", formatWorkoutTypeString(workoutType), formatWeekString(weekCount))
+        return String.format("%s - %s", formatWorkoutTypeString(workoutType), formatWeekString(weekCount))
     }
 
     private fun formatWorkoutTypeString(workoutType: WorkoutType): String {
