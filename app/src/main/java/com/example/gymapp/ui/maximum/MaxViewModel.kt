@@ -1,4 +1,4 @@
-package com.example.gymapp.ui.settings
+package com.example.gymapp.ui.maximum
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,7 +7,7 @@ import com.example.gymapp.database.TrainingMax
 import com.example.gymapp.database.TrainingMaxDatabaseDao
 import kotlinx.coroutines.*
 
-class SettingsViewModel(
+class MaxViewModel(
     val database: TrainingMaxDatabaseDao
 ) : ViewModel() {
 

@@ -1,4 +1,4 @@
-package com.example.gymapp.ui.settings
+package com.example.gymapp.ui.maximum
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.gymapp.database.TrainingMax
-import com.example.gymapp.databinding.FragmentSettingsDialogBinding
+import com.example.gymapp.databinding.FragmentMaxDialogBinding
 
+class MaxDialogFragment : DialogFragment() {
 
-class SettingsDialogFragment : DialogFragment() {
+    private val maxViewModel: MaxViewModel by viewModels(ownerProducer = { requireParentFragment() })
 
-    private val settingsViewModel: SettingsViewModel by viewModels(ownerProducer = { requireParentFragment() })
-
-    private var _binding: FragmentSettingsDialogBinding? = null
+    private var _binding: FragmentMaxDialogBinding? = null
 
     private val binding get() = _binding!!
 
@@ -23,32 +22,32 @@ class SettingsDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentSettingsDialogBinding.inflate(inflater, container, false)
+        _binding = FragmentMaxDialogBinding.inflate(inflater, container, false)
 
-        settingsViewModel.editSquatMax.value = settingsViewModel.squatMax.value
-        settingsViewModel.editBenchMax.value = settingsViewModel.benchMax.value
-        settingsViewModel.editDeadliftMax.value = settingsViewModel.deadliftMax.value
-        settingsViewModel.editOhpMax.value = settingsViewModel.ohpMax.value
+        maxViewModel.editSquatMax.value = maxViewModel.squatMax.value
+        maxViewModel.editBenchMax.value = maxViewModel.benchMax.value
+        maxViewModel.editDeadliftMax.value = maxViewModel.deadliftMax.value
+        maxViewModel.editOhpMax.value = maxViewModel.ohpMax.value
 
-        settingsViewModel.editSquatMax.observe(viewLifecycleOwner) {
+        maxViewModel.editSquatMax.observe(viewLifecycleOwner) {
             it?.let {
                 binding.editSquatValue.setText(it.toString())
             }
         }
 
-        settingsViewModel.editBenchMax.observe(viewLifecycleOwner) {
+        maxViewModel.editBenchMax.observe(viewLifecycleOwner) {
             it?.let {
                 binding.editBenchValue.setText(it.toString())
             }
         }
 
-        settingsViewModel.editDeadliftMax.observe(viewLifecycleOwner) {
+        maxViewModel.editDeadliftMax.observe(viewLifecycleOwner) {
             it?.let {
                 binding.editDeadliftValue.setText(it.toString())
             }
         }
 
-        settingsViewModel.editOhpMax.observe(viewLifecycleOwner) {
+        maxViewModel.editOhpMax.observe(viewLifecycleOwner) {
             it?.let {
                 binding.editOhpValue.setText(it.toString())
             }
@@ -74,20 +73,20 @@ class SettingsDialogFragment : DialogFragment() {
             ohpMax = binding.editOhpValue.text.toString().toFloatOrNull() ?: 0f,
         )
 
-        settingsViewModel.onSaveMaxes(trainingMaxes)
+        maxViewModel.onSaveMaxes(trainingMaxes)
     }
 
     private fun onAutoIncrementMaxes() {
         val upperBodyIncrement = 2.5f
         val lowerBodyIncrement = 5f
 
-        settingsViewModel.editSquatMax.value = settingsViewModel.editSquatMax.value?.plus(lowerBodyIncrement)
-        settingsViewModel.editBenchMax.value = settingsViewModel.editBenchMax.value?.plus(upperBodyIncrement)
-        settingsViewModel.editDeadliftMax.value = settingsViewModel.editDeadliftMax.value?.plus(lowerBodyIncrement)
-        settingsViewModel.editOhpMax.value = settingsViewModel.editOhpMax.value?.plus(upperBodyIncrement)
+        maxViewModel.editSquatMax.value = maxViewModel.editSquatMax.value?.plus(lowerBodyIncrement)
+        maxViewModel.editBenchMax.value = maxViewModel.editBenchMax.value?.plus(upperBodyIncrement)
+        maxViewModel.editDeadliftMax.value = maxViewModel.editDeadliftMax.value?.plus(lowerBodyIncrement)
+        maxViewModel.editOhpMax.value = maxViewModel.editOhpMax.value?.plus(upperBodyIncrement)
     }
 
     companion object {
-        const val TAG = "SettingsDialogFragment"
+        const val TAG = "MaxDialogFragment"
     }
 }

@@ -22,10 +22,10 @@
         tools:layout="@layout/fragment_history" />
 
     <fragment
-        android:id="@+id/navigation_settings"
-        android:name="com.example.gymapp.ui.settings.SettingsFragment"
-        android:label="@string/title_training_maxes"
-        tools:layout="@layout/fragment_settings" />
+        android:id="@+id/navigation_max"
+        android:name="com.example.gymapp.ui.maximum.MaxFragment"
+        android:label="@string/title_training_max"
+        tools:layout="@layout/fragment_max" />
 
     <fragment
         android:id="@+id/navigation_workout"

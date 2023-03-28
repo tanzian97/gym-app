@@ -1,4 +1,4 @@
-package com.example.gymapp.ui.settings
+package com.example.gymapp.ui.maximum
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.gymapp.R
 import com.example.gymapp.database.TrainingMaxDatabase
-import com.example.gymapp.databinding.FragmentSettingsBinding
+import com.example.gymapp.databinding.FragmentMaxBinding
 
-class SettingsFragment : Fragment() {
+class MaxFragment : Fragment() {
 
-    private var _binding: FragmentSettingsBinding? = null
+    private var _binding: FragmentMaxBinding? = null
 
     private val binding get() = _binding!!
 
@@ -25,31 +25,31 @@ class SettingsFragment : Fragment() {
 
         val dataSource = TrainingMaxDatabase.getInstance(application).trainingMaxDatabaseDao
 
-        val viewModelFactory = SettingsViewModelFactory(dataSource)
+        val viewModelFactory = MaxViewModelFactory(dataSource)
 
-        val settingsViewModel = ViewModelProvider(this, viewModelFactory)[SettingsViewModel::class.java]
+        val maxViewModel = ViewModelProvider(this, viewModelFactory)[MaxViewModel::class.java]
 
-        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        _binding = FragmentMaxBinding.inflate(inflater, container, false)
 
-        settingsViewModel.squatMax.observe(viewLifecycleOwner) {
+        maxViewModel.squatMax.observe(viewLifecycleOwner) {
             it?.let {
                 binding.squatMaxValue.text = getString(R.string.weight_format_text, it)
             }
         }
 
-        settingsViewModel.benchMax.observe(viewLifecycleOwner) {
+        maxViewModel.benchMax.observe(viewLifecycleOwner) {
             it?.let {
                 binding.benchMaxValue.text = getString(R.string.weight_format_text, it)
             }
         }
 
-        settingsViewModel.deadliftMax.observe(viewLifecycleOwner) {
+        maxViewModel.deadliftMax.observe(viewLifecycleOwner) {
             it?.let {
                 binding.deadliftMaxValue.text = getString(R.string.weight_format_text, it)
             }
         }
 
-        settingsViewModel.ohpMax.observe(viewLifecycleOwner) {
+        maxViewModel.ohpMax.observe(viewLifecycleOwner) {
             it?.let {
                 binding.ohpMaxValue.text = getString(R.string.weight_format_text, it)
             }
@@ -58,13 +58,13 @@ class SettingsFragment : Fragment() {
         val fab: View = binding.fab
         fab.setOnClickListener {
             val args = Bundle()
-            settingsViewModel.squatMax.value?.let { args.putFloat("squatMax", it) }
-            settingsViewModel.benchMax.value?.let { args.putFloat("benchMax", it) }
-            settingsViewModel.deadliftMax.value?.let { args.putFloat("deadliftMax", it) }
-            settingsViewModel.ohpMax.value?.let { args.putFloat("ohpMax", it) }
+            maxViewModel.squatMax.value?.let { args.putFloat("squatMax", it) }
+            maxViewModel.benchMax.value?.let { args.putFloat("benchMax", it) }
+            maxViewModel.deadliftMax.value?.let { args.putFloat("deadliftMax", it) }
+            maxViewModel.ohpMax.value?.let { args.putFloat("ohpMax", it) }
 
-            SettingsDialogFragment()
-                .show(childFragmentManager, SettingsDialogFragment.TAG)
+            MaxDialogFragment()
+                .show(childFragmentManager, MaxDialogFragment.TAG)
         }
         return binding.root
     }
