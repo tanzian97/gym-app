@@ -46,7 +46,7 @@ class WorkoutFinishDialogFragment(
 
         val max = workoutViewModel.getMaxForType(workoutViewModel.workoutType)?: 0f
 
-        binding.submitButton.setOnClickListener{
+        binding.saveButton.setOnClickListener{
             workoutViewModel.onSaveSet(mainSetWeights[0], binding.firstMainSetReps.text.toString().toIntOrNull()?: 0, max)
             workoutViewModel.onSaveSet(mainSetWeights[1], binding.secondMainSetReps.text.toString().toIntOrNull()?: 0, max)
             workoutViewModel.onSaveSet(mainSetWeights[2], binding.thirdMainSetReps.text.toString().toIntOrNull()?: 0, max)
