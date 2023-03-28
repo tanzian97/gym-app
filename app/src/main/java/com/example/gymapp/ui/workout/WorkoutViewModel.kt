@@ -5,7 +5,6 @@ import com.example.gymapp.database.SessionDatabaseDao
 import com.example.gymapp.database.SetDatabaseDao
 import com.example.gymapp.database.TrainingMax
 import com.example.gymapp.database.TrainingMaxDatabaseDao
-import com.example.gymapp.ui.home.WorkoutDay
 import com.example.gymapp.ui.home.WorkoutType
 import kotlinx.coroutines.*
 import java.util.*
