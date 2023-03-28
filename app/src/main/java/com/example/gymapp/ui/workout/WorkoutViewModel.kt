@@ -141,7 +141,7 @@ class WorkoutViewModel(
             repCount = repCount
         )
 
-        viewModelScope.launch {
+        uiScope.launch {
             update(set)
         }
     }
