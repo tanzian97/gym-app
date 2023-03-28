@@ -1,5 +1,7 @@
 package com.example.gymapp.ui.workout
 
+import com.example.gymapp.util.Utils.roundDownToNearestIncrement
+
 data class WorkoutSet (
     val setType: WorkoutSetType,
     val setCount: Int,
@@ -8,10 +10,7 @@ data class WorkoutSet (
     val weekCount: Int,
 ) {
     init {
-        weight = roundDownToNearestIncrement(weight)
+        weight = roundDownToNearestIncrement(weight, 2.5f)
     }
 
-    private fun roundDownToNearestIncrement(weight: Float) : Float {
-        return kotlin.math.floor(weight / 2.5f) * 2.5f
-    }
 }
