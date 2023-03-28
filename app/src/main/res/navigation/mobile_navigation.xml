@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.gymapp.ui.settings.SettingsFragment"
-        android:label="@string/title_settings"
+        android:label="@string/title_training_maxes"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
