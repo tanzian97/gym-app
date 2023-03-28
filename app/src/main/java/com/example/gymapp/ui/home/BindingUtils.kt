@@ -24,10 +24,10 @@ fun TextView.setWeekCount(week: Int) {
 fun ImageView.setExerciseTypeImage(workoutType: WorkoutType) {
     setImageResource(
         when (workoutType) {
-            WorkoutType.SQUAT -> R.drawable.ic_sleep_0
-            WorkoutType.BENCH -> R.drawable.ic_sleep_1
-            WorkoutType.DEADLIFT -> R.drawable.ic_sleep_2
-            WorkoutType.OHP -> R.drawable.ic_sleep_3
+            WorkoutType.SQUAT -> R.drawable.squat
+            WorkoutType.BENCH -> R.drawable.bench_press
+            WorkoutType.DEADLIFT -> R.drawable.deadlift
+            WorkoutType.OHP -> R.drawable.overhead_press
         }
     )
 }
