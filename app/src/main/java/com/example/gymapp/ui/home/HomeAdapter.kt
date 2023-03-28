@@ -5,25 +5,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gymapp.databinding.ListWorkoutDayBinding
 
-class HomeAdapter(val clickListener: WorkoutDayListener): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
-    private var data = listOf(
-        WorkoutDay(WorkoutType.SQUAT, 1),
-        WorkoutDay(WorkoutType.BENCH, 1),
-        WorkoutDay(WorkoutType.DEADLIFT, 1),
-        WorkoutDay(WorkoutType.OHP, 1),
-        WorkoutDay(WorkoutType.SQUAT, 2),
-        WorkoutDay(WorkoutType.BENCH, 2),
-        WorkoutDay(WorkoutType.DEADLIFT, 2),
-        WorkoutDay(WorkoutType.OHP, 2),
-        WorkoutDay(WorkoutType.SQUAT, 3),
-        WorkoutDay(WorkoutType.BENCH, 3),
-        WorkoutDay(WorkoutType.DEADLIFT, 3),
-        WorkoutDay(WorkoutType.OHP, 3),
-        WorkoutDay(WorkoutType.SQUAT, 4),
-        WorkoutDay(WorkoutType.BENCH, 4),
-        WorkoutDay(WorkoutType.DEADLIFT, 4),
-        WorkoutDay(WorkoutType.OHP, 4),
-    )
+class HomeAdapter(private val clickListener: WorkoutDayListener): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+
+    private var data: List<WorkoutDay>
+
+    init {
+        val workoutDays = mutableListOf<WorkoutDay>()
+        val workoutTypes = enumValues<WorkoutType>()
+
+        for (weekCount in 1..4) {
+            for (type in workoutTypes) {
+                workoutDays.add(WorkoutDay(type, weekCount))
+            }
+        }
+        data = workoutDays
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
