@@ -7,6 +7,6 @@ Workout history is saved into a SQLite database, allowing you to track your prog
 Upon completion of a cycle, you can auto-increment your training maximums and the app will re-calculate your lifts for the next cycle.
 
 <br/>
-<a href="url"><img src="docs/images/Home.png" align="left" height="650" width="300" ></a>
-<a href="url"><img src="docs/images/Workout.png" align="left" height="650" width="300" ></a>
-<a href="url"><img src="docs/images/History.png" align="left" height="650" width="300" ></a>
+<a href="url"><img src="docs/images/Home.png" align="left" height="425" width="200" ></a>
+<a href="url"><img src="docs/images/Workout.png" align="left" height="425" width="200" ></a>
+<a href="url"><img src="docs/images/History.png" align="left" height="425" width="200" ></a>
