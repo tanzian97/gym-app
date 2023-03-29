@@ -5,8 +5,8 @@ import com.example.gymapp.database.SetDatabaseDao
 import com.example.gymapp.database.TrainingMax
 import com.example.gymapp.database.TrainingMaxDatabaseDao
 import com.example.gymapp.ui.home.WorkoutType
+import com.example.gymapp.util.Utils.roundDownToNearestIncrement
 import kotlinx.coroutines.*
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
@@ -111,7 +111,7 @@ class WorkoutViewModel(
         val weights = mutableListOf<Float>()
         for (i in 0..2) {
             val mainSetMultipliers = mapWeekToMultiplierSets[weekCount]!!
-            weights.add(mainSetMultipliers[i] * max)
+            weights.add(roundDownToNearestIncrement(mainSetMultipliers[i] * max, 2.5f))
         }
         return weights
     }
