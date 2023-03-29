@@ -5,3 +5,7 @@ The program operates on 4-week cycles and focuses on 4 main compound lifts: the 
 After setting your training maximums in each lift, the app will calculate the weights you should lift on each workout session.
 Workout history is saved into a SQLite database, allowing you to track your progress over time.
 Upon completion of a cycle, you can auto-increment your training maximums and the app will re-calculate your lifts for the next cycle.
+
+![Home](docs/images/Home.png)
+![Workout](docs/images/Workout.png)
+![History](docs/images/History.png)
