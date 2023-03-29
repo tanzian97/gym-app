@@ -8,6 +8,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.gymapp.R
 import com.example.gymapp.databinding.FragmentWorkoutFinishDialogBinding
+import java.util.*
 
 class WorkoutFinishDialogFragment(
     private val amrapRepCount: Int,
@@ -45,9 +46,10 @@ class WorkoutFinishDialogFragment(
         val max = workoutViewModel.getMaxForType(workoutViewModel.workoutType)?: 0f
 
         binding.saveButton.setOnClickListener{
-            workoutViewModel.onSaveSet(mainSetWeights[0], binding.firstMainSetReps.text.toString().toIntOrNull()?: 0, max)
-            workoutViewModel.onSaveSet(mainSetWeights[1], binding.secondMainSetReps.text.toString().toIntOrNull()?: 0, max)
-            workoutViewModel.onSaveSet(mainSetWeights[2], binding.thirdMainSetReps.text.toString().toIntOrNull()?: 0, max)
+            val sessionId: UUID = UUID.randomUUID()
+            workoutViewModel.onSaveSet(mainSetWeights[0], binding.firstMainSetReps.text.toString().toIntOrNull()?: 0, max, sessionId)
+            workoutViewModel.onSaveSet(mainSetWeights[1], binding.secondMainSetReps.text.toString().toIntOrNull()?: 0, max, sessionId)
+            workoutViewModel.onSaveSet(mainSetWeights[2], binding.thirdMainSetReps.text.toString().toIntOrNull()?: 0, max, sessionId)
 
             workoutViewModel.onWorkoutComplete()
             dismiss()

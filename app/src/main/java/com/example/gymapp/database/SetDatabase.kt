@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(entities = [Set::class], version = 1)
-@TypeConverters(Converter::class)
+@TypeConverters(Converters::class)
 abstract class SetDatabase : RoomDatabase() {
 
      abstract val setDatabaseDao: SetDatabaseDao

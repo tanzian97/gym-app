@@ -1,18 +1,18 @@
 package com.example.gymapp.ui.workout
 
 import androidx.lifecycle.*
-import com.example.gymapp.database.SessionDatabaseDao
 import com.example.gymapp.database.SetDatabaseDao
 import com.example.gymapp.database.TrainingMax
 import com.example.gymapp.database.TrainingMaxDatabaseDao
 import com.example.gymapp.ui.home.WorkoutType
 import kotlinx.coroutines.*
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 
 class WorkoutViewModel(
     private val trainingMaxDatabase: TrainingMaxDatabaseDao,
     private val setDatabase: SetDatabaseDao,
-    private val sessionDatabase: SessionDatabaseDao,
     val workoutType: WorkoutType,
     val weekCount: Int
 ) : ViewModel() {
@@ -21,7 +21,7 @@ class WorkoutViewModel(
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewmodelJob)
 
-    var trainingMax = MutableLiveData<TrainingMax?>()
+    private var trainingMax = MutableLiveData<TrainingMax?>()
 
     val setList : LiveData<List<WorkoutSet>> = trainingMax.map {
         getWorkoutSetList(getMaxForType(workoutType), weekCount)
@@ -130,15 +130,16 @@ class WorkoutViewModel(
         return sets
     }
 
-    fun onSaveSet(weight: Float, repCount: Int, max: Float) {
+    fun onSaveSet(weight: Float, repCount: Int, max: Float, sessionId: UUID) {
         val set = com.example.gymapp.database.Set(
-            date = Date(),
+            date = LocalDateTime.now(),
             workoutType = workoutType,
             setType = WorkoutSetType.MAIN,
             weekCount = weekCount,
             trainingMax = max,
             weight = weight,
-            repCount = repCount
+            repCount = repCount,
+            sessionId = sessionId
         )
 
         uiScope.launch {

@@ -5,6 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.gymapp.ui.home.WorkoutType
 import com.example.gymapp.ui.workout.WorkoutSetType
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 
 @Entity("table_set")
@@ -15,7 +17,7 @@ data class Set(
     val setId: Long = 0L,
 
     @ColumnInfo(name = "date")
-    val date: Date,
+    val date: LocalDateTime,
 
     @ColumnInfo(name = "workout_type")
     val workoutType: WorkoutType,
@@ -33,5 +35,8 @@ data class Set(
     val weight: Float,
 
     @ColumnInfo(name = "rep_count")
-    val repCount: Int
+    val repCount: Int,
+
+    @ColumnInfo(name = "session_id")
+    val sessionId: UUID
 )

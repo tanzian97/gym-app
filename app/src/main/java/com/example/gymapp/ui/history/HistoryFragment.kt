@@ -4,17 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
-import com.example.gymapp.database.SessionDatabase
 import com.example.gymapp.database.SetDatabase
-import com.example.gymapp.database.TrainingMaxDatabase
 import com.example.gymapp.databinding.FragmentHistoryBinding
-import com.example.gymapp.ui.workout.WorkoutAdapter
-import com.example.gymapp.ui.workout.WorkoutFragmentArgs
-import com.example.gymapp.ui.workout.WorkoutViewModelFactory
 
 class HistoryFragment : Fragment() {
 
@@ -37,20 +30,13 @@ class HistoryFragment : Fragment() {
 
         _binding = FragmentHistoryBinding.inflate(inflater, container, false)
 
-        var adapter = HistoryAdapter(emptyList())
+        binding.sessionHistoryList.adapter = HistoryAdapter(emptyList())
 
-//        historyViewModel.setList.observe(viewLifecycleOwner) {
-//            adapter = workoutViewModel.setList.value?.let { setList ->
-//                HistoryAdapter(setList, args.weekCount)
-//            }!!
-//            binding.setList.adapter = adapter
-//        }
+        historyViewModel.sessions.observe(viewLifecycleOwner) {
+            binding.sessionHistoryList.adapter = it?.let { sessionList -> HistoryAdapter(sessionList) }!!
+        }
 
-        binding.sessionHistoryList.adapter = adapter
-
-        val root: View = binding.root
-
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {

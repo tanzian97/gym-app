@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.gymapp.database.SessionDatabase
 import com.example.gymapp.database.SetDatabase
 import com.example.gymapp.database.TrainingMaxDatabase
 import com.example.gymapp.databinding.FragmentWorkoutBinding
@@ -36,26 +35,22 @@ class WorkoutFragment: Fragment(){
 
         val setDataSource = SetDatabase.getInstance(application).setDatabaseDao
 
-        val sessionDataSource = SessionDatabase.getInstance(application).sessionDatabaseDao
-
         val args: WorkoutFragmentArgs by navArgs()
 
-        val viewModelFactory = WorkoutViewModelFactory(trainingMaxDataSource, setDataSource, sessionDataSource, args.workoutType, args.weekCount)
+        val viewModelFactory = WorkoutViewModelFactory(trainingMaxDataSource, setDataSource, args.workoutType, args.weekCount)
 
         val workoutViewModel = ViewModelProvider(this, viewModelFactory)[WorkoutViewModel::class.java]
 
         _binding = FragmentWorkoutBinding.inflate(inflater, container, false)
 
-        var adapter = WorkoutAdapter(emptyList(), args.weekCount)
-        binding.setList.adapter = adapter
+        binding.setList.adapter = WorkoutAdapter(emptyList(), args.weekCount)
 
         binding.workoutInfo.text = Utils.formatWorkoutInfo(args.workoutType, args.weekCount)
 
         workoutViewModel.setList.observe(viewLifecycleOwner) {
-            adapter = workoutViewModel.setList.value?.let { setList ->
+            binding.setList.adapter = workoutViewModel.setList.value?.let { setList ->
                 WorkoutAdapter(setList, args.weekCount)
             }!!
-            binding.setList.adapter = adapter
         }
 
         val recordAmrapButton: View = binding.recordAmrapButton
