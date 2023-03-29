@@ -23,9 +23,9 @@ class HistoryViewModel(setDatabase: SetDatabaseDao) : ViewModel() {
             val workoutType = firstSet.workoutType
             val weekCount = firstSet.weekCount
             val trainingMax = firstSet.trainingMax
-            val setList = entry.value
+            val setsInSession = entry.value.sortedBy { set -> set.weight }
 
-            sessions.add(Session(date, workoutType, weekCount, trainingMax, setList))
+            sessions.add(Session(date, workoutType, weekCount, trainingMax, setsInSession))
         }
         return sessions
     }

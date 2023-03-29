@@ -33,7 +33,7 @@ class HistoryAdapter(val data: List<Session>): RecyclerView.Adapter<HistoryAdapt
             // sort the sets?
             binding.set1Details.text = Utils.formatSetDetails(item.sets[0])
             binding.set2Details.text = Utils.formatSetDetails(item.sets[1])
-            binding.set3Details.text = Utils.formatSetDetails(item.sets[1])
+            binding.set3Details.text = Utils.formatSetDetails(item.sets[2])
             binding.executePendingBindings()
         }
 
