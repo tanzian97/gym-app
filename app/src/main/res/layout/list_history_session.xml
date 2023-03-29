@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Tuesday, 28 March 2023"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -20,7 +20,7 @@
             android:id="@+id/workout_type_week_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Squat - Week 2"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/date"
             app:layout_constraintTop_toBottomOf="@+id/date" />
 
@@ -28,7 +28,7 @@
             android:id="@+id/training_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TM 100.0 kg"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/workout_type_week_count"
             app:layout_constraintTop_toBottomOf="@+id/workout_type_week_count" />
 
@@ -46,6 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Set 1"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/training_max"
             app:layout_constraintTop_toBottomOf="@+id/line_view" />
 
@@ -54,6 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Set 2"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/set_1"
             app:layout_constraintTop_toBottomOf="@+id/set_1" />
 
@@ -63,6 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="Set 3"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/set_2"
             app:layout_constraintTop_toBottomOf="@+id/set_2" />
@@ -72,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:text="65.0 kg x 5"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/line_view" />
 
@@ -80,7 +83,7 @@
             android:id="@+id/set_2_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="75.0 kg x 5"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/set_1_details"
             app:layout_constraintTop_toBottomOf="@+id/set_1_details" />
 
@@ -88,7 +91,7 @@
             android:id="@+id/set_3_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="85.0 kg x 7"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/set_2_details"
             app:layout_constraintTop_toBottomOf="@+id/set_2_details" />
 
